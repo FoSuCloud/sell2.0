@@ -3,8 +3,11 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+// 引入index.styl文件(index.styl导入了其他的styl文件)
+import './common/stylus/index.styl'
 Vue.config.productionTip = false
+
+
 
 /* eslint-disable no-new */
 new Vue({
@@ -12,4 +15,4 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
-})
+});

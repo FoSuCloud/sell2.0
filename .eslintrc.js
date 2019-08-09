@@ -40,6 +40,7 @@ module.exports = {
 		'space-before-function-paren':0,
 		'space-before-blocks':0,
 		'spaced-comment':0,
-		'quotes':0
+		'quotes':0,
+		'eol-last':0
   }
 }

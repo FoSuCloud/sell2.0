@@ -35,6 +35,11 @@ module.exports = {
 		'no-trailing-spaces':0,
 		'no-multiple-empty-lines':0,
 		'no-unused-vars':0,
-		'space-infix-ops':0
+		'space-infix-ops':0,
+		'keyword-spacing':0,
+		'space-before-function-paren':0,
+		'space-before-blocks':0,
+		'spaced-comment':0,
+		'quotes':0
   }
 }

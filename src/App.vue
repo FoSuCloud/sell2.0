@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <v-header></v-header>
+		<!-- 绑定属性，向子组件中传值 -->
+    <v-header :seller="seller"></v-header>
 		<div class="tab border-1px">
 			<div class="tab-item">
 				<router-link to="/goods">商品</router-link>
@@ -18,7 +19,24 @@
 
 <script>
 		import header from './components/header/header.vue'
+		//返回成功的状态码
+		const ERR_OK=0;
+		
 		export default{
+			data() {
+				return{
+					seller:{}
+				};
+			},
+			created(){
+				this.axios.get('/api/seller').then((res) => {
+						// console.log(res.data)
+						if(res.data.errno===ERR_OK){
+							this.seller=res.data.data;
+							// console.log(this.seller);
+						}
+				});
+			},
 			components:{
 				'v-header':header
 			}

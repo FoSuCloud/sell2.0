@@ -20,3 +20,13 @@
 * 对于size使用computed中的一个函数返回一个字符串，成为绑定的class属性的一个名称，等待获取到onoff等状态后传递到maxin.styl文件中获取相应像素比的图片
 * 对于score使用computed中的一个函数一个数组，里面记录了五个值,on/off/half,然后再在绑定的属性v-for中逐个循环，每一个都到maxin.styl中获取相应的图片，通过styl样式获取，记得引入maxin.styl文件，使用bg-image方法
 
+## 6.flex布局实现平均边距线
+* 首先制作一个父元素，宽为80%，高度不设置，根据子元素text的字体14px而被撑开高度，注意，这里的高度同时也是子元素line的高度，三个子元素高度一致
+* 由于三个子元素高度一致，所以左右盒子模型就可以设置边距，设置底部边距为1px,同时设置相对位置(相对初始位置偏移)-6px，使得盒子模型上升，形成线在文字中部的效果
+
+## 7.添加动画
+* 向需要添加动画的元素嵌套transition元素，可以加上name属性，这样的话css3的属性就从v-enter改为name-enter类似这样
+* 使用transition设置动画时长，针对对象，进入方式，几个属性分别是v-enter,v-leave-to,v-enter-active,v-leave-active
+* 还可以设置opacity,transform设置进入退出方式，例如translateX,还有scale缩小放大
+
+#### 8.backdrop-filter设置的是元素后面的图像效果，filter设置的是自身的图形效果，例如backdrop-filter中的blur(10px)指的是对元素后面的图形模糊，而filter是对图形应用模糊10px

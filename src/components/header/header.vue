@@ -19,7 +19,7 @@
 					<span class="text">{{seller.supports[0].description}}</span>
 				</div>
 			</div>
-			<div class="support-count" v-if="seller.supports">
+			<div class="support-count" v-if="seller.supports" @click="showDetail">
 				<span class="count">{{seller.supports.length}}个</span>
 				<i class="icon-keyboard_arrow_right"></i>
 			</div>
@@ -31,20 +31,42 @@
 		<div class="background">
 			<img :src="seller.avatar" width="100%" height="100%">
 		</div>
-		<div v-show="detailShow" class="detail">
-			<!-- clearfix -->
-			<div class="detail-wrapper ">
-				<div class="detail-main">
-					<h1 class="name">{{seller.name}}</h1>
-					<div class="star-wrapper">
-						<star :size="48" :score="seller.score"></star>
+		<!-- 给元素嵌套transition元素，然后就可以设置动画了 -->
+		<transition>
+			<div v-show="detailShow" class="detail">
+				<!-- clearfix -->
+				<div class="detail-wrapper ">
+					<div class="detail-main">
+						<h1 class="name">{{seller.name}}</h1>
+						<div class="star-wrapper">
+							<star :size="48" :score="seller.score"></star>
+						</div>
+						<div class="title">
+							<div class="line"></div>
+							<div class="text">优惠信息</div>
+							<div class="line"></div>
+						</div>
+						<ul class="supports" v-if="seller.supports">
+							<li class="support-item" v-for="(item,i) in seller.supports" :key="i">
+								<span class="icon" :class="classMap[seller.supports[i].type]"></span>
+								<span class="text">{{seller.supports[i].description}}</span>
+							</li>
+						</ul>
+						<div class="title">
+							<div class="line"></div>
+							<div class="text">商家公告</div>
+							<div class="line"></div>
+						</div>
+						<div class="bulletin">
+							<p class="content">{{seller.bulletin}}</p>
+						</div>
 					</div>
 				</div>
+				<div class="detail-close" @click="hideDetail">
+					<i class="icon-close"></i>
+				</div>
 			</div>
-			<div class="detail-close">
-				<i class="icon-close"></i>
-			</div>
-		</div>
+		</transition>
 	</div>
 </template>
 
@@ -65,6 +87,9 @@
 		methods:{
 			showDetail:function(){
 				this.detailShow=true
+			},
+			hideDetail:function(){
+				this.detailShow=false
 			}
 		},
 		components:{
@@ -205,6 +230,14 @@
 			// 因为内容过多的时候不能隐藏，所以使用auto
 			overflow:auto
 			background:rgba(7,17,27,.8)
+			// 让你为一个元素后面区域添加图形效果（如模糊或颜色偏移）。 
+			// 因为它适用于元素背后的所有元素，为了看到效果，必须使元素或其背景至少部分透明。
+			backdrop-filter:blur(100px)
+			// 使用transition嵌套的动画
+			&.v-enter-active,&.v-leave-active
+				transition: all .5s ease
+			&.v-leave-to,&.v-enter
+				opacity: 0
 			.detail-wrapper
 				min-height:100%
 				width:100%
@@ -220,6 +253,58 @@
 						margin-top:18px
 						padding:2px 0
 						text-align:center
+					.title
+						display:flex
+						width:80%
+						margin:28px auto 24px auto
+						.line
+							flex:1
+							position:relative
+							top:-6px
+							border-bottom:1px solid rgba(255,255,255,.2)
+						.text 
+							padding:0 12px
+							font-size:14px
+							font-weight:700
+					.supports
+						width:80%
+						margin:0 auto
+						.support-item
+							padding:0 12px
+							margin-bottom:12px
+							font-size:0
+							&:last-child
+								margin-bottom:0
+							.icon
+								display:inline-block
+								width:16px
+								height:16px
+								vertical-align:top
+								margin-right:6px
+								background-size: 16px 16px
+								background-repeat:no-repeat
+								&.decrease
+									bg-image('decrease_2')
+								&.discount
+									bg-image('discount_2')
+								&.guarantee
+									bg-image('guarantee_2')
+								&.invoice
+									bg-image('invoice_2')
+								&.special
+									bg-image('special_2')
+							.text
+								font-size:12px
+								height:16px
+								line-height:16px
+					.bulletin
+						width:80%
+						margin:0 auto
+						.content
+							font-size:12px
+							height:24px
+							line-height:24px
+							padding:0 12px
 			.detail-close
 				margin-top:-64px
 				// 64=32+64,图标大小+底部大小

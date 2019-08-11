@@ -24,27 +24,51 @@
 				<i class="icon-keyboard_arrow_right"></i>
 			</div>
 		</div>
-		<div class="bulletin-wrapper">
+		<div class="bulletin-wrapper" @click="showDetail">
 			<span class="bulletin-title"></span><span class="bulletin-text">{{seller.bulletin}}</span>
 			<i class="icon-keyboard_arrow_right"></i>
 		</div>
 		<div class="background">
 			<img :src="seller.avatar" width="100%" height="100%">
 		</div>
+		<div v-show="detailShow" class="detail">
+			<!-- clearfix -->
+			<div class="detail-wrapper ">
+				<div class="detail-main">
+					<h1 class="name">{{seller.name}}</h1>
+					<div class="star-wrapper">
+						<star :size="48" :score="seller.score"></star>
+					</div>
+				</div>
+			</div>
+			<div class="detail-close">
+				<i class="icon-close"></i>
+			</div>
+		</div>
 	</div>
 </template>
 
 <script>
+	import star from '../star/star.vue'
 	export default {
 		data(){
 			return{
-				classMap:[]
+				classMap:[],
+				detailShow:false
 			}
 		},
 		// 子组件通过props属性接收父组件传递过来的值
 		props:["seller"],
 		created(){
 			this.classMap=['decrease', 'discount', 'special', 'invoice', 'guarantee']
+		},
+		methods:{
+			showDetail:function(){
+				this.detailShow=true
+			}
+		},
+		components:{
+			star:star
 		}
 	};
 </script>
@@ -84,7 +108,8 @@
 						margin-left:6px
 						font-size:16px
 						line-height:18px
-						font-weight:bold	
+						font-weight:bold
+					
 				.description
 					margin-bottom:10px
 					line-height:12px
@@ -169,5 +194,40 @@
 			// filter滤镜提供了模糊和改变元素颜色的功能，常用于调整图像的渲染，背景或者边框显示效果
 			// blur指的是模糊
 			filter:blur(10px)
+		.detail
+		// 使用fixed位置相对于视图
+			position:fixed
+			top:0
+			left:0
+			width:100%
+			height:100%
+			z-index:3
+			// 因为内容过多的时候不能隐藏，所以使用auto
+			overflow:auto
+			background:rgba(7,17,27,.8)
+			.detail-wrapper
+				min-height:100%
+				width:100%
+				.detail-main
+					padding-top:64px
+					padding-bottom:64px
+					.name
+						line-height:16px
+						text-align:center
+						font-size:16px
+						font-weight:700
+					.star-wrapper
+						margin-top:18px
+						padding:2px 0
+						text-align:center
+			.detail-close
+				margin-top:-64px
+				// 64=32+64,图标大小+底部大小
+				position:relative
+				.icon-close
+					position:absolute
+					margin-left:50%
+					left:-16px
+					font-size:32px
 </style>					
 				

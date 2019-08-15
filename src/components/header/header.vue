@@ -134,7 +134,6 @@
 						font-size:16px
 						line-height:18px
 						font-weight:bold
-					
 				.description
 					margin-bottom:10px
 					line-height:12px
@@ -226,7 +225,8 @@
 			left:0
 			width:100%
 			height:100%
-			z-index:3
+			// 本来是3的，但是设置购物车和商品组件后，没办法完全遮罩，所以需要提高z-index级别
+			z-index:4
 			// 因为内容过多的时候不能隐藏，所以使用auto
 			overflow:auto
 			background:rgba(7,17,27,.8)

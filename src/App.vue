@@ -5,7 +5,7 @@
 	<!--  由于border-1px 的存在会导致文字被左右拉伸，因为设置了scaleY被缩放，所以暂时去掉这个class-->
 		<div class="tab">
 			<div class="tab-item">
-				<router-link to="/goods">商品</router-link>
+				<router-link to="/goods" :seller="seller">商品</router-link>
 			</div>
 			<div class="tab-item">
 				<router-link to="/ratings">评论</router-link>
@@ -14,7 +14,7 @@
 				<router-link to="/seller">商家</router-link>
 			</div>
 		</div>
-    <router-view></router-view>
+    <router-view :seller="seller"></router-view>
   </div>
 </template>
 

@@ -44,3 +44,31 @@
 * 参考链接:https://www.cnblogs.com/yanqiong/p/11174472.html
 
 ## 10.3D转换动画:https://www.cnblogs.com/shenzikun1314/p/6390181.html
+## 11.定义js的钩子函数
+* 首先在html元素中定义事件如 @before-enter="beforeEnter"，设置进入之前，进入，进入之后要触发的钩子函数
+* 然后在钩子函数中可以设置第一个参数为所绑定的元素，然后就可以进行DOM操作啦
+* 另外注意:对于数组，如果要绑定动画，不要使用transition,要使用transition-group,然后transition-group不能绑定index作为key,所以我们可以手动给数据添加id作为唯一标识
+
+## 12.计算属性内不应该对属性值做变更，解决这个问题的做法之一是使用watch监听
+* 使用watch监听fold值，当该值为true的时候，初始化滚动事件，如果初始化过了，那么使用refresh刷新
+* 注意要使用ref绑定上拉购物车菜单，然后使用ths.$refs来操作DOM事件，从而给该元素绑定滚动事件
+
+#### 13.在html中使用@click.stop阻止冒泡
+#### 14.注意:template中的根元素只能是一个，所以shopcart.vue中的shopcart和list-mask还要嵌套一个div
+
+## 15.背景遮罩不需要计算背景高度，只需要设置z-index
+* 最高层级5的应该是商店详情页面 header.vue中的detail
+* 4:shopcart.vue中的shopcart，ball(小球动画)
+* 3:shopcart.vue中的list-mask(级别不能太小，太小会遮不住其他的)
+* 2:goods.vue中的左侧选中菜单栏
+
+## 16.点击商品加号
+* 首先goods.vue中引入了子组件cartcontrol，该组件的加号被点击之后，触发addCart函数，触发父组件goods.vue的cart_add事件，该事件触发cartAdd函数
+* 该函数触发绑定的DOM元素shopcart(子组件)的方法drop,需要提前使用ref绑定该子组件
+* shopcart.vue的drop方法给传递过来的元素绑定了el，修改了show=true,注意该数组预设长度为5，因为屏幕高度也就最多容纳5个商品
+* 数据变化之后，如果我们什么都不做了，就不会出现购物车下拉菜单了
+* 但是我们点击购物车，触发toggleList函数，fold数据变化了，然后computed计算属性中有该数据，然后相应的就产生了变化，因为符合条件，所以购物车下拉屏幕出现了
+
+#### 17.此外，由于我们把ball.show改为true了，所以会出现小球动画
+#### 18.贝塞尔曲线小球动画网址:http://web.chacuo.net/css3beziertool
+

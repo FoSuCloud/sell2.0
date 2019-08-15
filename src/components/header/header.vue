@@ -226,13 +226,13 @@
 			width:100%
 			height:100%
 			// 本来是3的，但是设置购物车和商品组件后，没办法完全遮罩，所以需要提高z-index级别
-			z-index:4
+			z-index:5
 			// 因为内容过多的时候不能隐藏，所以使用auto
 			overflow:auto
 			background:rgba(7,17,27,.8)
 			// 让你为一个元素后面区域添加图形效果（如模糊或颜色偏移）。 
 			// 因为它适用于元素背后的所有元素，为了看到效果，必须使元素或其背景至少部分透明。
-			backdrop-filter:blur(100px)
+			backdrop-filter:blur(5px)
 			// 使用transition嵌套的动画
 			&.v-enter-active,&.v-leave-active
 				transition: all .5s ease

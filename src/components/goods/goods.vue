@@ -32,7 +32,8 @@
 									<span class="now">￥{{food.price}}</span><span class="old" v-show="food.oldPrice">￥{{food.oldPrice}}</span>
 								</div>
 								<div class="cartcontrol-wrapper">
-									<cartcontrol :food="food"></cartcontrol>
+									<!-- 当子组件触发 cart_add事件就执行cartAdd函数-->
+									<cartcontrol :food="food"  @cart_add="cartAdd"></cartcontrol>
 								</div>
 							</div>
 						</li>
@@ -40,7 +41,7 @@
 				</li>
 			</ul>
 		</div>
-		<shopcart :selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
+		<shopcart ref="shopcart" :selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
 	</div>
 </template>
 
@@ -110,6 +111,13 @@
 				let el=this.foodList[index]
 				// 300指的是移动300毫秒
 				this.foodsScroll.scrollToElement(el, 300)
+			},
+			cartAdd(el){
+				// 如果要操作DOM元素就使用$nextTick
+				this.$nextTick(function(){
+					// 使用shopcart组件的drop方法
+					this.$refs.shopcart.drop(el);
+				})
 			}
 		},
 		computed:{

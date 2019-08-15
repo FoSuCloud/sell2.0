@@ -1,6 +1,6 @@
 <template>
 	<div class="cartcontrol">
-		<transition>		
+		<transition name="cart">		
 			<div class="cart-decrease icon-remove_circle_outline" v-show="food.count>0" @click="descCart"></div>
 		</transition>
 		<div class="cart-count" v-show="food.count>0">{{food.count}}</div>
@@ -22,6 +22,8 @@
 					// 数据属性被set嵌套到对象以后，就可以实时更新啦
 					this.food.count++;
 				}
+				// 提交cart_add事件给父组件，第二个参数是要传递的参数
+				this.$emit('cart_add', event.target);
 			},
 			descCart(){
 				if(this.food.count>0){
@@ -42,12 +44,12 @@
 			line-height:24px
 			color:rgb(0,160,220)
 			transition:all .5s linear
-			&.v-enter-active,&.v-leave-active
+			&.cart-enter-active,&.cart-leave-active
 				opacity:1
 				transform:translate3D(0,0,0)
-			&.v-leave-to,&.v-enter
+			&.cart-leave-to,&.cart-enter
 				opacity:0
-				// 3D滚动效果
+				// 3D滚动效果git c
 				transform:translate3D(24px,0,0)
 		.cart-count
 			display:inline-block

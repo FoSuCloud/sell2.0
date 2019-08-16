@@ -16,7 +16,7 @@
 				<li v-for="(item,j) in goods" class="food-list" :key="j" ref="foodList">
 					<h1 class="title">{{item.name}}</h1>
 					<ul>
-						<li class="food-item" v-for="(food,i) in item.foods" :key="i">
+						<li  @click="selectFood(food)" class="food-item" v-for="(food,i) in item.foods" :key="i">
 							<!-- 图片 -->
 							<div class="icon">
 								<img :src="food.icon" width="57px" height="57px">
@@ -42,6 +42,7 @@
 			</ul>
 		</div>
 		<shopcart ref="shopcart" :selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
+		<food :selectedfood="selectedfood" ref="food" @cart_add="cartAdd"></food>
 	</div>
 </template>
 
@@ -49,6 +50,7 @@
 	import BScroll from 'better-scroll';
 	import shopcart from '../shopcart/shopcart';
 	import cartcontrol from '../cartcontrol/cartcontrol';
+	import food from '../food/food';
 	const ERR_OK=0;
 	export default {
 		props:['seller'],
@@ -56,7 +58,8 @@
 			return{
 				goods:[],
 				listHeight:[],
-				scrollY:0
+				scrollY:0,
+				selectedfood:''
 			}
 		},
 		created(){
@@ -118,6 +121,11 @@
 					// 使用shopcart组件的drop方法
 					this.$refs.shopcart.drop(el);
 				})
+			},
+			selectFood(food){
+				this.selectedfood=food;
+				// 显示商品详情
+				this.$refs.food.show();
 			}
 		},
 		computed:{
@@ -147,7 +155,8 @@
 		},
 		components:{
 			shopcart:shopcart,
-			cartcontrol:cartcontrol
+			cartcontrol:cartcontrol,
+			food:food
 		}
 	};
 </script>

@@ -28,6 +28,7 @@
 		methods:{
 			select(type){
 				this.newSelectType=type;
+				console.log(this.newSelectType)
 				// 需要告诉父组件，你传给我的值被我修改啦！否则会有警告
 				// Avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders. Instead, use a data or computed property based on the prop's value. Prop being mutated: "selectType"
 				this.$emit('updateType', type);

@@ -58,7 +58,11 @@
 							<div class="line"></div>
 						</div>
 						<div class="bulletin">
-							<p class="content">{{seller.bulletin}}</p>
+							<p class="content">
+							{{seller.bulletin}}
+							{{seller.bulletin}}
+							{{seller.bulletin}}
+							</p>
 						</div>
 					</div>
 				</div>
@@ -232,7 +236,7 @@
 			background:rgba(7,17,27,.8)
 			// 让你为一个元素后面区域添加图形效果（如模糊或颜色偏移）。 
 			// 因为它适用于元素背后的所有元素，为了看到效果，必须使元素或其背景至少部分透明。
-			backdrop-filter:blur(5px)
+			backdrop-filter:blur(10px)
 			// 使用transition嵌套的动画
 			&.v-enter-active,&.v-leave-active
 				transition: all .5s ease
@@ -241,9 +245,9 @@
 			.detail-wrapper
 				min-height:100%
 				width:100%
+				padding-bottom:48px
 				.detail-main
 					padding-top:64px
-					padding-bottom:64px
 					.name
 						line-height:16px
 						text-align:center
@@ -302,17 +306,15 @@
 						margin:0 auto
 						.content
 							font-size:12px
-							height:24px
 							line-height:24px
 							padding:0 12px
 			.detail-close
-				margin-top:-64px
-				// 64=32+64,图标大小+底部大小
-				position:relative
 				.icon-close
-					position:absolute
 					margin-left:50%
 					left:-16px
 					font-size:32px
+					margin-bottom:20px
+					display:block
+							
 </style>					
 				

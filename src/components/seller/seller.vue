@@ -28,6 +28,10 @@
 						</div>
 					</li>
 				</ul>
+				<div class="favorite">
+					<span class="icon-favorite" @click="toggleFavorite" :class="favorite?'active':''"></span>
+					<span class="text" >{{favoriteText}}</span>
+				</div>
 			</div>
 			<split></split>
 			<div class="bulletin">
@@ -68,9 +72,23 @@
 	import star from '../star/star'
 	import split from '../split/split'
 	import BScroll from 'better-scroll'
+	import {saveToLocal, loadFromLocal} from '../../common/js/util'
 	
 	export default {
 		props:['seller'],
+		data(){
+			// 此处的favorite数据需要使用立即执行函数获取localStorge
+			return{
+				favorite:(() => {
+					return loadFromLocal(this.seller.id, 'favorite', false)
+				})()
+			}
+		},
+		computed:{
+			favoriteText(){
+				return this.favorite?'已收藏':'收藏'
+			}
+		},
 		created(){
 			this.classMap=['decrease', 'discount', 'special', 'invoice', 'guarantee']
 			this.$nextTick(function(){
@@ -83,6 +101,7 @@
 				}
 				// 还需要启动横向滚动
 				this.PictureScroll();
+				console.log(this.favorite)
 			})
 		},
 		methods:{
@@ -106,6 +125,11 @@
 						this.picturescroll.refresh()
 					}
 				})
+			},
+			toggleFavorite(){
+				this.favorite=!this.favorite;
+				// 存储localStroge
+				saveToLocal(this.seller.id, 'favorite', this.favorite);
 			}
 		},
 		components:{
@@ -127,6 +151,7 @@
 		overflow:hidden
 		.overview
 			padding:18px 
+			position:relative
 			.title
 				margin-bottom:8px
 				line-height:14px 
@@ -168,6 +193,27 @@
 					color:rgb(7,17,27)
 					.stress
 						font-size:24px 
+			.favorite
+				position:absolute
+				// 并且由于图标左右各有13px宽度间隙，所以right需要减掉13px
+				right:5px 
+				top:18px 
+				// 根据浏览器显示可知最大宽度为30px,如果不设置宽度，那么图标会左右移动(当点击的时候)
+				width:50px
+				// 但是我们需要水平居中，所以左右各添加一个字体宽度
+				text-align:center
+				.icon-favorite
+					display:block
+					color:#d4d6d9
+					line-height:24px 
+					font-size:24px 
+					margin-bottom:4px
+					&.active 
+						color:rgb(240,20,20)
+				.text
+					line-height:10px 
+					font-size:10px 
+					color:rgb(77,85,93)
 		.bulletin
 			padding:18px 18px 0 18px 
 			.title

@@ -14,12 +14,16 @@
 				<router-link to="/seller">商家</router-link>
 			</div>
 		</div>
-    <router-view :seller="seller"></router-view>
+	<keep-alive>
+		<router-view :seller="seller"></router-view>
+	</keep-alive>
   </div>
 </template>
 
 <script>
 		import header from './components/header/header.vue'
+		import {urlParse} from './common/js/util'
+
 		//返回成功的状态码
 		const ERR_OK=0;
 		
@@ -30,10 +34,16 @@
 				};
 			},
 			created(){
-				this.axios.get('/api/seller').then((res) => {
+				// 获取url地址
+				let url=window.location.href;
+				this.seller.id=urlParse(url).id;
+				// console.log(this.obj)
+				this.axios.get('/api/seller?id='+this.seller.id).then((res) => {
 						// console.log(res.data)
 						if(res.data.errno===ERR_OK){
-							this.seller=res.data.data;
+							// this.seller=res.data.data;
+							// 在原有seller的基础上(id)再加上相应数据
+							this.seller=Object.assign({}, this.seller, res.data.data);
 							// console.log(this.seller);
 						}
 				});

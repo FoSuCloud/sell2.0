@@ -34,3 +34,28 @@
 * substr()方法可以有两个参数，第一个是起始位置，第二个是长度，返回从某处开始切割，切割多长的字符串
 * 对于需要补零的字符串，可以使用substr,length方法属性实现 如 ('00'+str).sustr(str.length),当长度为2的时候，返回str,当长度为1的时候，如果str=3,返回 03
 
+## 10.浏览器私缀
+* 浏览器私缀就是一些放在css属性前的字符串，用来确保这些属性只在特定浏览器渲染引擎下才执行
+* -ms-  IE(不一定)
+* -moz-  火狐等使用Mozilla浏览器渲染引擎的浏览器
+* -webkit-  谷歌，Safiri等使用Webkit浏览器渲染引擎的浏览器
+* -o-  早期的Opera浏览器
+* 注意:在写浏览器私缀css属性的时候，没有私缀的属性要写到后面，如:
+* -ms-border-radius:50%
+* -moz-border-radius:50%
+* -webkit-border-radius:50%
+* -o-border-radius:50%
+* border-radius:50%
+* 浏览器私缀其实就是各个浏览器对css3特性的测试，只有部分css3属性需要添加浏览器私缀，部分最新版浏览器已经支持css3特性的就不需要添加私缀了(所以我们使用谷歌火狐浏览器才一般不添加私缀，因为我们用的都是挺新的版本)
+* 如:border-radius,flex,column,box-shadow,@keyframes,动画属性，移动和变换属性等
+
+## 11.animation属性 @keyframes
+* transition属性可以实现动画过渡效果，但是略显生硬，而animation属性可以利用@keyframes指定时间段内的动画效果，使动画划分的更为精细
+* 语法结构 : @keyframes animation-name {keyframes-selector {css-styles;}}
+* 例如先在HTML元素中设置animation属性为 mymove .5s infinite ;第一个参数是animation属性的名称，第二个属性是动画执行一次的时间，第三个参数是执行次数为infinite无限制
+* 由于animation这个css3特性在一些浏览器中还没有作为标准使用，所以需要添加浏览器私缀，如
+* @-moz-keyframes mymove{ from {top:0px} to {top:200px} }
+* 还有一种方式可以精确到百分比时间
+* @keyframes mymove{ 0% {top:0px} 50%{top:80px} 100% {top:200px}}
+* 注意:如果改变的是位置，那么position就应该是relative/absolue/fixeed
+

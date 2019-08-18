@@ -2,13 +2,14 @@
 require('./check-versions')()
 
 process.env.NODE_ENV = 'production'
-
+// ora库给长时间运行的命令界面提供提示信息
 const ora = require('ora')
 const rm = require('rimraf')
 const path = require('path')
 const chalk = require('chalk')
 const webpack = require('webpack')
 const config = require('../config')
+// webpack.prod.conf是webpack的设置文件
 const webpackConfig = require('./webpack.prod.conf')
 
 const spinner = ora('building for production...')

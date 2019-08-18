@@ -44,6 +44,8 @@ module.exports = {
   },
 
   build: {
+	// 生产环境下所用的端口
+	port: 9000,
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
 
@@ -55,8 +57,8 @@ module.exports = {
     /**
      * Source Maps
      */
-
-    productionSourceMap: true,
+	// productionSourceMap决定编译打包时是否生成.map文件，我们改为false
+    productionSourceMap: false,
     // https://webpack.js.org/configuration/devtool/#production
     devtool: '#source-map',
 

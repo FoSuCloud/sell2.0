@@ -76,6 +76,7 @@
 					});
 				}
 			})
+			// console.log('我是开发环境下的~')
 		},
 		methods:{
 			_initScroll(){

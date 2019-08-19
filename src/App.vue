@@ -14,9 +14,11 @@
 				<router-link to="/seller">商家</router-link>
 			</div>
 		</div>
-	<keep-alive>
-		<router-view :seller="seller"></router-view>
-	</keep-alive>
+		<transition name="myrouter">
+			<keep-alive>
+				<router-view :seller="seller" class="Router"></router-view>
+			</keep-alive>
+		</transition>
   </div>
 </template>
 
@@ -75,4 +77,8 @@
 					color:rgb(77,85,93)
 					&.active
 						color:rgb(200,0,0)
+		.Router
+			transition:all .5s ease
+			&.myrouter-enter,&.myrouter-leave-to
+				opacity:0
 </style>

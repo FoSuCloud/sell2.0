@@ -10,6 +10,9 @@
 * 我认为这个布局的实现主要在于规定了detail-wrapper占据整个高度min-height:100%，并且它的兄弟节点.detail-close能够使用margin-top来实现 -40px这样的功能，向上一个兄弟节点往上突进
 * 然后detail-wrapper还需要设置padding-top,padding-bottom来占据一定的空白，特别是底部空白需要给它的兄弟节点占据，所以需要留多点空白
 * 其他注意点:i标签里面使用了图标文本，虽然也算图片，但是大小需要使用font-size设置，否则不起效，然后使用text-align设置水平居中失败，那就使用margin-left:50%,left:16px来实现
+---
+* 其实该布局我之前做错了，不应该设置文本高度的，这样子就是限制死了高度，导致布局失败，关闭按钮会和文本重叠，因为超过高度的文本跳出了文档流
+* 还有下滑才能看到关闭按钮的问题看[后续优化](https://github.com/FoSuCloud/sell/blob/master/study/%E5%90%8E%E7%BB%AD%E4%BC%98%E5%8C%96%E4%BF%AE%E6%94%B9.md)
 
 ## 4.计算属性computed
 * 可以使用绑定计算属性的方式，当计算函数里面的数据变化就会重新计算一遍，然后更新html中的值

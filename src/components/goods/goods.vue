@@ -69,7 +69,7 @@
 				if(res.data.errno===ERR_OK){
 					this.goods=res.data.data;
 					// console.log(this.goods)
-					// Vue.nextTick用于延迟执行一段代码，它接受2个参数（回调函数和执行回调函数的上下文环境），如果没有提供回调函数，那么将返回promise对象
+					// Vue.nextTick用于延迟执行(DOM更新完毕后)一段代码，它接受2个参数（回调函数和执行回调函数的上下文环境），如果没有提供回调函数，那么将返回promise对象
 					this.$nextTick(() => {
 						this._initScroll();
 						this._calculateHeight();
@@ -85,7 +85,7 @@
 				this.menuScroll=new BScroll(this.$refs.menuWrapper, {
 					click:true
 				});
-				// better-scroll当 probeType 为 3 的时候，不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件。
+				// better-scroll当 probeType 为 3 的时候，不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件(检测元素高度变化)。
 				this.foodsScroll=new BScroll(this.$refs.foodsWrapper, {
 					probeType:3,
 					click:true
@@ -106,7 +106,6 @@
 					height+=item.clientHeight;
 					this.listHeight.push(height)
 				}
-				// console.log(this.listHeight)
 			},
 			selectMenu(index, event){
 				if(!event._constructed){
@@ -117,7 +116,8 @@
 				this.foodsScroll.scrollToElement(el, 300)
 			},
 			cartAdd(el){
-				// 如果要操作DOM元素就使用$nextTick
+				// Vue 实现响应式并不是数据发生变化之后 DOM 立即变化，而是按一定的策略进行 DOM 的更新。如果要操作DOM元素就使用$nextTick
+				// $nextTick 是在下次 DOM 更新循环结束之后执行延迟回调，在修改数据之后使用 $nextTick，则可以在回调中获取更新后的 DOM
 				this.$nextTick(function(){
 					// 使用shopcart组件的drop方法
 					this.$refs.shopcart.drop(el);

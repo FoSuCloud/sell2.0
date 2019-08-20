@@ -1,6 +1,6 @@
-项目开始时间:
+* 项目开始时间:
 	2019-8-10
-主要库版本:
+* 主要库版本:
 	Vue:2.5.2		
 	vue-axios:2.1.4		
 	vue-router:3.1.1
@@ -54,11 +54,11 @@
 #### static目录
 * css目录下的reset.css文件是从网站上下载下来的，是默认的样式文件，包含一些基础的，没有错误的样式，需要在根目录下的index.html文件中引入
 * .gitkeep文件为空
-* 虽然看起来这个目录没什么用，reset.css文件也可以放到src的common目录下，但是在编译打包的时候，static目录下的文件是会被直接复制过去的，文件名也没有改，所以不可以随便删除该文件夹，具体可见"第七天.md"
+* 虽然看起来这个目录没什么用，reset.css文件也可以放到src的common目录下，但是在编译打包的时候，static目录下的文件是会被直接复制过去的，文件名也没有改，所以不可以随便删除该文件夹，具体可见[第七天.md](https://github.com/FoSuCloud/sell/blob/master/study/%E7%AC%AC%E4%B8%83%E5%A4%A9%E7%BC%96%E8%AF%91%E6%89%93%E5%8C%85.md)
 #### test目录存放了项目测试的文件，具体未知
 
 ## 3.common三级目录介绍
-* fonts下面的文件都是图标文本生成的，具体可见"第一天.md"
+* fonts下面的文件都是图标文本生成的，具体可见[第一天.md](https://github.com/FoSuCloud/sell/blob/master/study/%E7%AC%AC%E4%B8%80%E5%A4%A9.md)
 * date.js文件其实可以放在util.js文件中，这也是个优化，这个文件就是日期格式化的函数，使用export function funcname{}的方式暴露函数
 * util.js文件中包含三个函数，url解析函数，存储localStorge函数，读取localStorge函数
 * stylus目录下的文件都是stylus样式文件，index.styl用于导入其他styl文件，是主入口，导入他就可以了，但是使用maxin.styl文件的css方法的时候还要额外导入该文件
@@ -81,12 +81,15 @@
 
 ## 5.库介绍
 * webpack是前端资源模块化管理和打包的工具，可以将很多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源，还可以将按需加载的模块进行代码分割，等到实际需要的时候再进行异步加载
-* 而vue-cli是脚手架工具，需要注意的是vue-cli包含webpack,vue-cli的作用就使用配置好的模板快速搭建一个项目工程，省去自己搭建项目的时间，具体可见"第一天.md"
+* 而vue-cli是脚手架工具，需要注意的是vue-cli包含webpack,vue-cli的作用就使用配置好的模板快速搭建一个项目工程，省去自己搭建项目的时间，具体可见[第一天.md](https://github.com/FoSuCloud/sell/blob/master/study/%E7%AC%AC%E4%B8%80%E5%A4%A9.md)
 * vue-router是vue.js的官方路由插件,适合用于构建 `单页面应用` 。vue的单页面应用是基于路由和组件的,vue-router用于设定访问路径,并将路由和组件映射起来。
-* 
-
+* vue-axios是基于Promise用于浏览器和nodejs的http客户端,vue-axios依赖于本机支持ES6 `Promise` 实现，可以拦截请求和响应，转换请求和响应数据，从浏览器中创建XML，从nodejs发出http请求
+* Express 是一个简洁而灵活的 node.js Web应用框架,可以快速搭建一个网站,特性:可以设置中间件来响应http请求(webpack.dev.conf.js)；定义了路由表用于执行不同的 HTTP 请求动作(发送请求，我们使用vue-axios)，可以通过向模板传递参数来动态渲染 HTML 页面(css,js等各种文件处理)
+* better-scroll是一款重点解决移动端（已支持 PC）各种滚动场景需求的插件
 
 
 ## 6.收集网站
 * [生成图标文本](https://icomoon.io)
 * [默认css基础样式](http://cssreset.com)
+* [手机访问电脑二维码](https://cli.im/url)
+* [贝塞尔曲线小球动画网址](http://web.chacuo.net/css3beziertool)

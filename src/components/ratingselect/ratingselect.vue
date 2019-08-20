@@ -88,9 +88,9 @@
 					&.active
 						background:rgb(77,85,93)
 		.switch  
-			padding:12px 18px 
+			margin:12px 18px 
 			line-height:24px
-			border-bottom:1px solid rgba(7,17,27,.1)
+			border-1px(rgba(7,17,27,.1))
 			color:rgb(147,153,159)
 			font-size:0
 			&.on

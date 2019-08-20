@@ -7,12 +7,12 @@
 * 注意:无论在移动端还是PC端，better-scroll实现指的都是下滑移动，直接使用鼠标滚轮滚动时不行的!
 
 ## 2.$nextTick
-* Vue中的nextTick涉及到Vue中DOM的异步更新,为了在数据变化之后等待 Vue 完成更新 DOM ，可以在数据变化之后立即使用Vue.nextTick(callback) 。这样回调函数在 DOM 更新完成后就会调用。
-* 注意:在Vue生命周期的created()钩子函数进行的DOM操作(例如滚动事件)一定要放在Vue.nextTick()的回调函数中
-* 在created()钩子函数执行的时候DOM 其实并未进行任何渲染，而此时进行DOM操作无异于徒劳，所以此处一定要将DOM操作的js代码放进Vue.nextTick()的回调函数中
+* vue.js的特性的确是响应式，但是响应式不代表修改数据之后实时更新DOM，而是按照一定的策略进行DOM的更新，我们不去深究DOM的更新策略
+* 如果我们需要操作DOM元素，而且这个元素经常被更新，我们需要使用更新后的元素，那么我们就需要设置异步更新后再使用该元素，否则我们获取到的是未更新的DOM
 * 参考链接:https://www.jianshu.com/p/a7550c0e164f
+* 涉及到[深入响应式原理](https://cn.vuejs.org/v2/guide/reactivity.html#search-query-sidebar)
 
-## 3.商品列表屏幕滚动事件
+## 3.商品列表屏幕滚动事件(左右联动加载)
 * 首先在created周期函数中通过$nextTick方法初始化两个函数:_initScroll, _calculateHeight,然后在methods中编写这两个函数
 * _initScroll 函数负责监听左侧菜单栏滚动事件 _calculateHeight监听右侧菜单栏滚动事件
 * better-scroll当 probeType 为 3 的时候，不仅在屏幕滑动的过程中，而且在 momentum 滚动动画运行过程中实时派发 scroll 事件。
@@ -40,7 +40,7 @@
 * 当vue的数据里面已经声明或者赋值的对象或者数组(数组里面是对象)时，向对象中添加新的属性，更新属性的值，是不会更新视图的
 * 根据官方文档定义:如果在创建实例之后添加属性到实例中，他不会触发视图的更新
 * 受到js的限制，vue不能检测到对象属性的添加和删除。由于vue会在初始化实例时对属性执行getter,setter转换过程，所以属性必须在data对象上存在才能让vue转换它
-* 解决方案:可以使用vue.set()方法将相应属性添加到嵌套的对象上 Vue.set(对象,'属性',值)
+* 解决方案:可以使用vue.set()方法将相应属性添加到嵌套的对象上 Vue.set(对象,'属性',值)；看food.vue
 * 参考链接:https://www.cnblogs.com/yanqiong/p/11174472.html
 
 ## 10.3D转换动画:https://www.cnblogs.com/shenzikun1314/p/6390181.html
@@ -52,6 +52,7 @@
 ## 12.计算属性内不应该对属性值做变更，解决这个问题的做法之一是使用watch监听
 * 使用watch监听fold值，当该值为true的时候，初始化滚动事件，如果初始化过了，那么使用refresh刷新
 * 注意要使用ref绑定上拉购物车菜单，然后使用ths.$refs来操作DOM事件，从而给该元素绑定滚动事件
+* 一般情况下都是使用computed计算属性，但是使用 watch 选项允许我们执行异步操作 (访问一个 API)，限制我们执行该操作的频率，并在我们得到最终结果前，设置中间状态。这些都是计算属性无法做到的。
 
 #### 13.在html中使用@click.stop阻止冒泡
 #### 14.注意:template中的根元素只能是一个，所以shopcart.vue中的shopcart和list-mask还要嵌套一个div

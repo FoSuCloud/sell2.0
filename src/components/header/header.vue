@@ -60,8 +60,6 @@
 						<div class="bulletin">
 							<p class="content">
 							{{seller.bulletin}}
-							{{seller.bulletin}}
-							{{seller.bulletin}}
 							</p>
 						</div>
 					</div>
@@ -212,16 +210,17 @@
 				right:12px
 				top:12px
 		.background
-			position:absolute
-			top:0
-			left:0
-			width:100%
-			height:100%
-			// 因为普通样式默认为1，所以如果是被遮罩的话，那么z-index应该是-1
-			z-index:-1
-			// filter滤镜提供了模糊和改变元素颜色的功能，常用于调整图像的渲染，背景或者边框显示效果
-			// blur指的是模糊
-			filter:blur(10px)
+			img
+				position:absolute
+				top:0
+				left:0
+				width:100%
+				height:100%
+				// 因为普通样式默认为1，所以如果是被遮罩的话，那么z-index应该是-1
+				z-index:-1
+				// filter滤镜提供了模糊和改变元素颜色的功能，常用于调整图像的渲染，背景或者边框显示效果
+				// blur指的是模糊
+				filter:blur(10px)
 		.detail
 		// 使用fixed位置相对于视图
 			position:fixed
@@ -233,19 +232,22 @@
 			z-index:5
 			// 因为内容过多的时候不能隐藏，所以使用auto
 			overflow:auto
-			background:rgba(7,17,27,.8)
 			// 让你为一个元素后面区域添加图形效果（如模糊或颜色偏移）。 
 			// 因为它适用于元素背后的所有元素，为了看到效果，必须使元素或其背景至少部分透明。
 			backdrop-filter:blur(10px)
+			// 也就是说该页面必须设置背景，否则元素后面的元素仅仅是模糊，并没有被遮住，那样子会很难看，可以试着把background去掉看看
+			background:rgba(7,17,27,.8)
 			// 使用transition嵌套的动画
 			&.v-enter-active,&.v-leave-active
 				transition: all .5s ease
 			&.v-leave-to,&.v-enter
 				opacity: 0
 			.detail-wrapper
-				min-height:100%
+				// 后续优化:为了实现css sticky footor布局,前面的最小高度被设置，但是设置中绘制为100%的话，那么无论内容为多少都需要下滑才能看到关闭按钮，这样是不符合我们设想的
+				// 所以优化为min-height:85% padding-bottom:8% detail-close>height:7% 加起来就是屏幕高度100% ，这样的话就不会每次都要下滑才能关闭了
+				min-height:85%
 				width:100%
-				padding-bottom:48px
+				padding-bottom:8%
 				.detail-main
 					padding-top:64px
 					.name
@@ -315,6 +317,9 @@
 					font-size:32px
 					margin-bottom:20px
 					display:block
+					position:relative
+					top:0
+					height:7%
 							
 </style>					
 				

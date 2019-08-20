@@ -116,6 +116,8 @@
 			},
 			addFirst(){
 				this.$emit('cart_add', event.target)
+				// 给vue实例中的数据对象添加属性只能在创建的时候添加(此时才是响应式的)，在创建实例之后添加则不是响应式的
+				// 解决方法，通过vue.set方法
 				Vue.set(this.selectedfood, 'count', 1)
 			},
 			updateType(type){

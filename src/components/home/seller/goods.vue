@@ -48,12 +48,13 @@
 
 <script>
 	import BScroll from 'better-scroll';
-	import shopcart from '../shopcart/shopcart';
-	import cartcontrol from '../cartcontrol/cartcontrol';
-	import food from '../food/food';
+	import shopcart from '../../subcomponents/shopcart';
+	import cartcontrol from '../../subcomponents/cartcontrol';
+	import food from '../../subcomponents/food';
+	import {urlParse} from '../../../common/js/util'
 	const ERR_OK=0;
 	export default {
-		props:['seller'],
+		props:['seller', 'id'],
 		data(){
 			return{
 				goods:[],
@@ -63,9 +64,9 @@
 			}
 		},
 		created(){
-			// 初始化数组
+		// 	// 初始化数组
 			this.classMap=['decrease', 'discount', 'special', 'invoice', 'guarantee']
-			this.axios.get('/api/goods').then((res) => {
+			this.axios.get('/api/goods?id='+this.id).then((res) => {
 				if(res.data.errno===ERR_OK){
 					this.goods=res.data.data;
 					// console.log(this.goods)
@@ -104,6 +105,7 @@
 				for(let i=0; i<this.foodList.length; i++){
 					let item=this.foodList[i];
 					height+=item.clientHeight;
+					//内容可视区域的高度，也就是说页面浏览器中可以看到内容的这个区域的高度
 					this.listHeight.push(height)
 				}
 			},
@@ -119,7 +121,7 @@
 				// Vue 实现响应式并不是数据发生变化之后 DOM 立即变化，而是按一定的策略进行 DOM 的更新。如果要操作DOM元素就使用$nextTick
 				// $nextTick 是在下次 DOM 更新循环结束之后执行延迟回调，在修改数据之后使用 $nextTick，则可以在回调中获取更新后的 DOM
 				this.$nextTick(function(){
-					// 使用shopcart组件的drop方法
+					// 使用shopcart组件的drop方法,通过el把被点击的商品传递到购物车
 					this.$refs.shopcart.drop(el);
 				})
 			},
@@ -163,15 +165,17 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-	@import '../../common/stylus/maxin'
+	@import '../../../common/stylus/maxin'
 	.goods
 		display:flex
 		position:absolute
-		// top:174px		bottom:48px		width:100%这种方式设置相对垂直距离
 		top:174px
-		bottom:48px
+		// 48px购物车-40px app.vue
+		bottom:8px
+		// top:174px		bottom:48px		width:100%这种方式设置相对垂直距离
 		width:100%
 		overflow:hidden
+		z-index:3
 		.menu-wrapper
 			// 表示不扩大缩小，一直是80px
 			flex:0 0 80px
@@ -208,17 +212,18 @@
 					background-size:12px 12px
 					background-repeat:no-repeat
 					&.decrease
-						bg-image('decrease_3')
+						bg-image('../../../../resource/img/decrease_3')
 					&.discount
-						bg-image('discount_3')
+						bg-image('../../../../resource/img/discount_3')
 					&.guarantee
-						bg-image('guarantee_3')
+						bg-image('../../../../resource/img/guarantee_3')
 					&.invoice
-						bg-image('invoice_3')
+						bg-image('../../../../resource/img/invoice_3')
 					&.special
-						bg-image('special_3')
+						bg-image('../../../../resource/img/special_3')
 		.foods-wrapper
 			flex:1
+			background:white
 			.title
 				padding-left:14px
 				height:26px

@@ -48,6 +48,9 @@
 * 首先在html元素中定义事件如 @before-enter="beforeEnter"，设置进入之前，进入，进入之后要触发的钩子函数
 * 然后在钩子函数中可以设置第一个参数为所绑定的元素，然后就可以进行DOM操作啦
 * 另外注意:对于数组，如果要绑定动画，不要使用transition,要使用transition-group,然后transition-group不能绑定index作为key,所以我们可以手动给数据添加id作为唯一标识
+---
+* 对于transition和transition-group可以通过name来命名使用css3动画，如果在元素的不同生命周期使用不同的函数(计算或者设置功能)的话就可以对于transition/transition-group使用绑定事件@enter="",@before-enter=""这种方式
+* 例子在shopcart.vue
 
 ## 12.计算属性内不应该对属性值做变更，解决这个问题的做法之一是使用watch监听
 * 使用watch监听fold值，当该值为true的时候，初始化滚动事件，如果初始化过了，那么使用refresh刷新
@@ -64,11 +67,15 @@
 * 2:goods.vue中的左侧选中菜单栏
 
 ## 16.点击商品加号
-* 首先goods.vue中引入了子组件cartcontrol，该组件的加号被点击之后，触发addCart函数，触发父组件goods.vue的cart_add事件，该事件触发cartAdd函数
+* 首先goods.vue中引入了子组件cartcontrol，该组件的加号被点击之后，触发addCart函数，触发父组件goods.vue的cart_add事件，该事件触发cartAdd函数,通过该函数把el也就是被点击的商品元素传递过去
 * 该函数触发绑定的DOM元素shopcart(子组件)的方法drop,需要提前使用ref绑定该子组件
 * shopcart.vue的drop方法给传递过来的元素绑定了el，修改了show=true,注意该数组预设长度为5，因为屏幕高度也就最多容纳5个商品
-* 数据变化之后，如果我们什么都不做了，就不会出现购物车下拉菜单了
-* 但是我们点击购物车，触发toggleList函数，fold数据变化了，然后computed计算属性中有该数据，然后相应的就产生了变化，因为符合条件，所以购物车下拉屏幕出现了
+* ball.show=true,所以我们之前的css可以使用了，就按照预定好的动画开启小球落点动画，小球的起点和终点是由之前设定的js钩子函数决定的
+* 首先需要知道商品位置，通过getBoundingClientRect获取某个商品相对于视窗的位置集合，right,left,top,bottom
+* 最后我们点击购物车，触发toggleList函数，fold数据变化了，然后computed计算属性中有该数据，然后相应的就产生了变化，因为符合条件，所以购物车下拉屏幕出现了
+---
+* 待完善:translate3d
+
 
 #### 17.此外，由于我们把ball.show改为true了，所以会出现小球动画
 #### 18.贝塞尔曲线小球动画网址:http://web.chacuo.net/css3beziertool

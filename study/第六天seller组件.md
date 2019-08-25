@@ -3,8 +3,8 @@
 * 所以应该给子元素添加line-height撑开高度，这样子得到的才是真实的line-height
 
 ## 2.background-size与width,height
-* 对于图标文本来说，只设置width,height也可以显示，但是如果宽高低于原图片的宽高，那么显示的只是图片的一部分
-* 只有设置background-size才能显示缩小版的图片
+* 对于背景图片来说，只对元素设置width,height也可以显示背景图片，但是如果宽高低于原图片的宽高，那么显示的只是背景的一部分
+* 只有设置background-size才能显示缩小版的图片，另外如果背景图片的background-size比元素的宽高小很多的话会出现多个重复的背景图片，所以可以设置no-repeat
 
 ## 3.横向滚动条
 * 注意:虽然好像不给ul嵌套div也可以，但是实际上需要嵌套div
@@ -21,8 +21,9 @@
 * 我们没有开发后端，所以使用的是模拟数据，模拟url,使用的url是http://10.201.252.158:8080/#/seller，但是真实场景中，每个商家都有一个id,我们要通过Id访问到商家
 * 为了真实点，我们需要通过id访问商家，获取商家id,然后传输给服务器，告诉服务器我们访问了这个商家
 * 首先在js的util.js中写一个函数urlParse来解析url,正则为 [?&][^?&]+=[^?&]+  对应于 ?id=12345
+* `[^xyz] 不匹配这个集合中的任何一个字符 ; ^a表示匹配以a开头，$a匹配a结尾，所以有没有中括号是完全反过来的!`
 * 该函数返回的是一个对象，对象里面有url的多个参数，我们只取id,然后在app.vue中的get请求中加上 ?id=this.seller.id (提前给seller加上id)
-* 注意:请求之后返回的是 Object.assign({}, this.seller, res.data.data); 将所有可枚举属性的值从一个或多个源对象复制到目标对象
+* 注意:请求之后返回的是 `Object.assign({}, this.seller, res.data.data)`; 将所有可枚举属性的值从一个或多个源对象复制到目标对象
 * 也就是把原seller(有id的)和请求得到的数据的属性都加到空对象中，然后返回这个总对象，这样我们前端就获取到了商家id,并且可以使用了
 * 使用例子:点击收藏，然后就向后端发送请求，修改seller.id为该商家的数据，下次进入该商家就直接是已收藏状态
 
@@ -36,4 +37,4 @@
 ## 7.页面状态保持 keep-alive
 * 我们在商品界面把许多商品加入了购物车，然后切换到其他界面，然后再次回到商品界面，购物车中的商品就消失了，这样是不符合用户期待的
 * 解决方案:给app.vue中的router-view嵌套keep-alive,这样就可以让router-view的状态保持住了，原理其实也是localStorge
-* 参考:https://www.cnblogs.com/sysuhanyf/p/7454530.html
+* [keep-alive](https://www.cnblogs.com/sysuhanyf/p/7454530.html)

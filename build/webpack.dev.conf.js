@@ -17,10 +17,14 @@ const express=require('express')
 const app=express()
 // 导入json文件
 const appData = require('../data.json') //加载本地数据文件
-const seller = appData.seller; //获取对应的本地数据
-const goods = appData.goods; //获取对应的本地数据
-const ratings = appData.ratings; //获取对应的本地数据
+var business=appData.business;
 
+function getdata(id,type){
+	 // console.log(business[id-1])
+	 // console.log(business[id-1][type])
+	 // 注意:对于数组对象来说 对象.属性 =对象['属性字符串']，我们输入的是字符串，所以需要 对象['属性字符串']这种方法
+	 return business[id-1][type];
+}
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -58,22 +62,28 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     },
 		// 注意:这里的地址是http://localhost:8080/api/ratings 这样的，没有 # # # !!!
 		before(app) {
+			app.get('/api/alls',function(req,res){
+				res.json({
+					errno:0,
+					data:business
+				});
+			});
       app.get('/api/seller' ,function (req, res) {
         res.json({
           errno: 0,  //错误数为0，有的数据错误数有限制
-          data: seller  //接口返回json数据，将上面定义的数据seller赋值给data，然后调用
+          data: getdata(req.query.id,'seller')  //接口返回json数据，将上面定义的数据seller赋值给data，然后调用
         })
       });
       app.get('/api/goods' ,function (req, res) {
         res.json({
           errno: 0,
-          data: goods  //接口返回json数据，将上面定义的数据goodsr赋值给data，然后调用
+          data: getdata(req.query.id,'goods')   //接口返回json数据，将上面定义的数据goods赋值给data，然后调用
         })
       });
       app.get('/api/ratings' ,function (req, res) {
         res.json({
           errno: 0,
-          data: ratings  //接口返回json数据，将上面定义的数据ratingsr赋值给data，然后调用
+          data: getdata(req.query.id,'ratings')   //接口返回json数据，将上面定义的数据ratings赋值给data，然后调用
         })
       });
     },

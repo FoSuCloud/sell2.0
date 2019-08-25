@@ -8,20 +8,26 @@
 * 在ratingselect.vue中的rating-type的span，需要使用v-if来决定是否生成该元素节点,如果ratings存在则生成
 * 不能使用v-show，因为v-show只是添加样式display:none;而且我们在computed中定义的计算属性是可以用，但是加了length就不可以，因为父节点此时还没有传递过来是数据，但是却要计算长度，这会报错，但是返回空数据确是可以的
 
-## 4.props属性数值修改
+## 4.props属性数值`修改`
 * 对于父组件传递过来的数据，子组件通过props属性接收，但是也仅仅是接收，使用，不可以直接修改！
 * 如果要修改的话，要在触发修改事件之前，使用data中的数据接收props传递过来的数据，然后修改data中的数据，再通过$emit()传递修改后的数据
 * 而父组件则需要定义接收修改后的props数据的事件，然后在事件触发函数中修改父组件中的数据，间接达到子组件修改props数据的目的
 * 参考链接:https://blog.csdn.net/o_Mario_o/article/details/77035451
+---
+* `区分，给props中传递过来的对象添加属性可以使用vue.set`
+* vue.set('对象名','对象字段','对象字段被修改后的值')
 
 #### 5.如果绑定属性有多个可能的选项就使用||或来表达
 * 如::class="rating.rateType===0?'icon-thumb_up':'' || rating.rateType===1?'icon-thumb_down':''"
+* document.write(!! '');空字符串转换为布尔值是false,所以第一个判定为false之后就使用第二个判定来看看
 
 ## 6.props补充
 * food.vue中的rating-wrapper此时还没有接收到父组件传递过来的selectedfood.ratings，所以需要在长度判断之前再加上selectedfood.ratings存在判断，如果不存在就不需要判断长度了
 
 ## 7.由于评论列表没有动画太尴尬，所以添加了
 * 需要注意的是，动画出现的时候总会从上面掉到下面，该如何控制?
+---
+* 暂时搞不定，所以把动画去掉了
 
 ## 8.vue的filter过滤器应用于时间格式转换
 * 首先创建一个date.js文件，export 一个函数JSDate,函数接收两个参数，返回正确格式的数据
@@ -47,7 +53,7 @@
 * -o-border-radius:50%
 * border-radius:50%
 * 浏览器私缀其实就是各个浏览器对css3特性的测试，只有部分css3属性需要添加浏览器私缀，部分最新版浏览器已经支持css3特性的就不需要添加私缀了(所以我们使用谷歌火狐浏览器才一般不添加私缀，因为我们用的都是挺新的版本)
-* 如:border-radius,flex,column,box-shadow,@keyframes,动画属性，移动和变换属性等
+* 如:border-radius,flex,column,box-shadow,text-shadow,@keyframes,动画属性，移动和变换属性等
 
 ## 11.animation属性 @keyframes
 * transition属性可以实现动画过渡效果，但是略显生硬，而animation属性可以利用@keyframes指定时间段内的动画效果，使动画划分的更为精细

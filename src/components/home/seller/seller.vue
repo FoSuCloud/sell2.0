@@ -1,6 +1,6 @@
 <template>
-	<div class="seller" ref="seller">
-		<div class="seller-content">
+	<div class="seller" ref="myseller">
+		<div class="sellerContent">
 			<div class="overview">
 				<h1 class="title">{{seller.name}}</h1>
 				<div class="desc">
@@ -69,19 +69,25 @@
 </template>
 
 <script>
-	import star from '../star/star'
-	import split from '../split/split'
+	import star from '../../subcomponents/star'
+	import split from '../../subcomponents/split'
 	import BScroll from 'better-scroll'
-	import {saveToLocal, loadFromLocal} from '../../common/js/util'
+	import {saveToLocal, loadFromLocal, urlParse} from '../../../common/js/util'
 	
 	export default {
-		props:['seller'],
+		props:['seller', 'id'],
 		data(){
 			// 此处的favorite数据需要使用立即执行函数获取localStorge
 			return{
 				favorite:(() => {
-					return loadFromLocal(this.seller.id, 'favorite', false)
+					return loadFromLocal(this.id, 'favorite', false)
 				})()
+			}
+		},
+		// 监听id的变化，每当id变化都重新让favorite去取值
+		watch:{
+			id(oldOvl, newOvl){
+				this.favorite=loadFromLocal(this.id, 'favorite', false)
 			}
 		},
 		computed:{
@@ -93,7 +99,7 @@
 			this.classMap=['decrease', 'discount', 'special', 'invoice', 'guarantee']
 			this.$nextTick(function(){
 				if(!this.scroll){
-					this.scroll=new BScroll(this.$refs.seller, {
+					this.scroll=new BScroll(this.$refs.myseller, {
 						probeType:3, click:true
 					})
 				}else{
@@ -101,7 +107,9 @@
 				}
 				// 还需要启动横向滚动
 				this.PictureScroll();
-				console.log(this.favorite)
+				// 需要设置滚动区域高度
+				this.$refs.myseller.style.height=window.innerHeight-174+'px'
+				// console.log(this.favorite)
 			})
 		},
 		methods:{
@@ -122,14 +130,15 @@
 							eventPassthrough:'vertical'
 						})
 					}else{
-						this.picturescroll.refresh()
+						this.picturescroll.refresh();
 					}
 				})
 			},
 			toggleFavorite(){
 				this.favorite=!this.favorite;
 				// 存储localStroge
-				saveToLocal(this.seller.id, 'favorite', this.favorite);
+				// 首先从url中获取id
+				saveToLocal(this.id, 'favorite', this.favorite);
 			}
 		},
 		components:{
@@ -140,15 +149,20 @@
 </script>
 
 <style lang="stylus" rel="sheetstylus">
-	@import '../../common/stylus/maxin'
-	
-	.seller
-		position:absolute
-		top:174px
-		bottom:0
-		left:0
+@import '../../../common/stylus/maxin'
+.seller
+	position:relative
+	top:40px
+	left:0
+	bottom:0
+	width:100%
+	background:white
+	overflow:hidden
+	.sellerContent
 		width:100%
-		overflow:hidden
+		position:absolute
+		top:0
+		z-index:2
 		.overview
 			padding:18px 
 			position:relative
@@ -244,15 +258,15 @@
 					background-size:16px 16px
 					background-repeat:no-repeat
 					&.decrease
-						bg-image('decrease_4')
+						bg-image('../../../../resource/img/decrease_4')
 					&.discount
-						bg-image('discount_4')
+						bg-image('../../../../resource/img/discount_4')
 					&.special
-						bg-image('special_4')
+						bg-image('../../../../resource/img/special_4')
 					&.invoice
-						bg-image('invoice_4')
+						bg-image('../../../../resource/img/invoice_4')
 					&.guarantee
-						bg-image('guarantee_4')
+						bg-image('../../../../resource/img/guarantee_4')
 				.text 
 					font-size:12px
 					line-height:16px

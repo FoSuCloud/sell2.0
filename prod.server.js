@@ -40,6 +40,12 @@ apiRouter.get('/ratings' ,function (req, res) {
 	  data: ratings  //接口返回json数据，将上面定义的数据ratingsr赋值给data，然后调用
 	})
 });
+apiRouter.get('/all' ,function (req, res) {
+	res.json({
+	  errno: 0,
+	  data: appData  //接口返回json数据，将上面定义的数据ratingsr赋值给data，然后调用
+	})
+});
 // 设置二级url地址，使用apiRouter的请求都自动加上api字符串
 app.use('/api',apiRouter)	  
 

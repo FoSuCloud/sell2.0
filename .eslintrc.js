@@ -41,6 +41,7 @@ module.exports = {
 		'space-before-blocks':0,
 		'spaced-comment':0,
 		'quotes':0,
-		'eol-last':0
+		'eol-last':0,
+		'no-dupe-keys':0
   }
 }

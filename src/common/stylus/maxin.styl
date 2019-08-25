@@ -22,6 +22,6 @@ border-none()
 		display:none
 
 bg-image($url)
-	background-image:url("../../../resource/img/"+$url+"@2x.png")
+	background-image:url($url+"@2x.png")
 	@media (-webkit-min-device-pixel-radio:3),(min-device-pixel-radio:3)
-		background-image:url("../../../resource/img/"+$url+"@3x.png")
+		background-image:url($url+"@3x.png")

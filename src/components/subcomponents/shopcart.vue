@@ -60,7 +60,7 @@
 </template>
 
 <script>
-	import cartcontrol from '../cartcontrol/cartcontrol'
+	import cartcontrol from './cartcontrol'
 	import BScroll from 'better-scroll'
 	export default {
 		data(){
@@ -146,36 +146,41 @@
 						ball.show=true;//第一个改为false了，第二次点击的时候，第二个就被选中啦
 						ball.el=el;//第一次点击加号的商品被加到列表头部
 						this.dropBalls.push(ball);
-						return;
+						return;//出现一次就退出
 					}
 				}
 			},
+			// 小球起始位置
 			beforeEnter(el){
 				let count=this.dropBalls.length;//5
 				while(count--){
 					let ball=this.dropBalls[count];//43210
 					if(ball.show){
+						// getBoundingClientRect获取某个元素相对于视窗的位置集合，right,left,top,bottom
 						let rect=ball.el.getBoundingClientRect();
+						// console.log(rect.left, rect.top);//目标位置
+						// console.log(el.getBoundingClientRect());//小球位置
+						
 						let x=-(rect.left-32);
 						// window.innerHeight声明了窗口的文档显示区的高度和宽度
 						let y=-rect.top;
-						el.style.display="";
 						el.style.webkitTransform=`translate3d(${x}px,${y}px,0)`;
 						el.style.transform=`translate3d(${x}px,${y}px,0)`;
 					}
 				}
 			},
+			// 最终落点
 			enter(el){
 				this.$nextTick(function(){
 					el.style.webkitTransform='translate3d(0,0,0)';
 					el.style.transform='translate3d(0,0,0)';
 				})
 			},
+			// 到达落点之后消失
 			afterEnter(el){
 				let ball=this.dropBalls.shift();
 				if(ball){
 					ball.show=false;
-					el.style.display='';
 				}
 			},
 			toggleList(){

@@ -4,6 +4,7 @@
 			<div class="avatar">
 				<!-- 绑定属性然后才能使用props中的内容 -->
 				<img :src="seller.avatar" width="64" height="64">
+				<div class="back" @click.stop="hide"><i class="icon-arrow_lift"></i></div>
 			</div>
 			<div class="content">
 				<div class="title">
@@ -73,7 +74,7 @@
 </template>
 
 <script>
-	import star from '../star/star.vue'
+	import star from './star'
 	export default {
 		data(){
 			return{
@@ -92,6 +93,10 @@
 			},
 			hideDetail:function(){
 				this.detailShow=false
+			},
+			hide:function(){
+				// 让商家页面消失
+				this.$store.commit('changehomeshow');
 			}
 		},
 		components:{
@@ -107,6 +112,8 @@
 		color:#fff
 		background:rgba(7,17,27,.5)
 		overflow:hidden
+	    // 如果这里设置了z-index:1，那么商家详情那里也就是detail会没办法完全显示，即使detail的z-index:5	
+		// z-index:1
 		.content-wrapper
 			position:relative
 			padding:24px 12px 18px 24px
@@ -116,6 +123,15 @@
 				vertical-align:top
 				img
 					border-radius:2px
+				.back
+					position:absolute
+					top:5px
+					left:0
+					.icon-arrow_lift
+						display:block
+						padding:5px 
+						font-size:20px
+						color:rgba(255,255,255,.8)
 			.content
 				display:inline-block
 				margin-left:16px
@@ -128,7 +144,7 @@
 						vertical-align:top
 						width:30px
 						height:18px
-						bg-image('brand')
+						bg-image('../../../resource/img/brand')
 						background-size:30px 18px
 						background-repeat:no-repeat
 					.name
@@ -150,15 +166,15 @@
 						background-size:12px 12px
 						background-repeat:no-repeat
 						&.decrease
-							bg-image('decrease_1')
+							bg-image('../../../resource/img/decrease_1')
 						&.discount
-							bg-image('discount_1')
+							bg-image('../../../resource/img/discount_1')
 						&.guarantee
-							bg-image('guarantee_1')
+							bg-image('../../../resource/img/guarantee_1')
 						&.invoice
-							bg-image('invoice_1')
+							bg-image('../../../resource/img/invoice_1')
 						&.special
-							bg-image('special_1')
+							bg-image('../../../resource/img/special_1')
 					.text
 						display:inline-block
 						line-height:12px
@@ -198,7 +214,7 @@
 				vertical-align:middle
 				width:22px
 				height:12px
-				bg-image('bulletin')
+				bg-image('../../../resource/img/bulletin')
 				background-size:22px 12px
 				background-repeat:no-repeat
 			.bulletin-text
@@ -290,15 +306,15 @@
 								background-size: 16px 16px
 								background-repeat:no-repeat
 								&.decrease
-									bg-image('decrease_2')
+									bg-image('../../../resource/img/decrease_2')
 								&.discount
-									bg-image('discount_2')
+									bg-image('../../../resource/img/discount_2')
 								&.guarantee
-									bg-image('guarantee_2')
+									bg-image('../../../resource/img/guarantee_2')
 								&.invoice
-									bg-image('invoice_2')
+									bg-image('../../../resource/img/invoice_2')
 								&.special
-									bg-image('special_2')
+									bg-image('../../../resource/img/special_2')
 							.text
 								font-size:12px
 								height:16px

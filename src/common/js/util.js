@@ -28,17 +28,18 @@ export function saveToLocal(id, key, value){
 	// 刚开辟seller命名空间时，建立seller对象
 	if(!seller){
 		seller={};
+	}else{
+		// 解析为JSON格式(此时的seller是取自localStorge的，是字符串格式，但是下面的代码是针对JSON格式的，所以先转为JSON格式)
+		seller=JSON.parse(seller);
 	}
 	
-	
-	// 解析为JSON格式(此时的seller是取自localStorge的，是字符串格式，但是下面的代码是针对JSON格式的，所以先转为JSON格式)
-	seller=JSON.parse(seller);
 	// console.log(seller)
 	// 还不存在seller['22'],seller['2424']这些其他id时，创建该id
 	if(!seller[id]){
 		seller[id]={};
 		// seller {id:{}}
 	}
+	// console.log(seller[id])
 	// 存在/不存在该id,要添加键,或者要修改键的值
 	seller[id][key]=[value]
 	// seller {id:{key:value}}
@@ -60,9 +61,10 @@ export function loadFromLocal(id, key, def){
 	if(!seller[id]){
 		return def;
 	}
+	// console.log(seller instanceof Array);//false
 	let value=seller[id][key];
 	// 返回的是一个数组对象，我们需要只取第一个值
-	// console.log(value[0])
+	// console.log(value)
 	// 如果存在键就返回想要的值
 	return value[0]||def;
 }

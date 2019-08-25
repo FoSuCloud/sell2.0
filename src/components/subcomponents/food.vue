@@ -8,7 +8,7 @@
 				</div>
 				<div class="content">
 					<h1 class="title">{{selectedfood.name}}</h1>
-					<div class="detail">
+					<div class="fooddetail">
 						<span class="sell-count">月售{{selectedfood.sellCount}}份</span>
 						<span class="rating">好评率{{selectedfood.rating}}%</span>
 					</div>
@@ -35,19 +35,17 @@
 						<!-- 此时还没有接收到父组件传递过来的selectedfood.ratings，所以需要在长度判断之前再加上selectedfood.ratings存在判断，如果不存在就不需要判断长度了 -->
 						<ul v-if="selectedfood.ratings && selectedfood.ratings.length">
 							<!-- v-show绑定一个函数，传递rating.rateTYpe,rating.text决定显示的内容 -->
-							<transition-group name="rating">
-								<li v-show="needShow(rating.rateType,rating.text)" class="rating-item" v-for="rating in selectedfood.ratings" :key="rating.rateTime">
-									<div class="user">
-										<span class="name">{{rating.username}}</span>
-										<img class="avatar" :src="rating.avatar" width="12" height="12">
-									</div>
-									<div class="time">{{rating.rateTime | formatDate}}</div>
-									<p class="text">
-										<span :class="rating.rateType===0?'icon-thumb_up':'' || rating.rateType===1?'icon-thumb_down':''"></span>
-										 {{rating.text}}
-									</p>
-								</li>
-							</transition-group>
+							<li v-show="needShow(rating.rateType,rating.text)" class="rating-item" v-for="rating in selectedfood.ratings" :key="rating.rateTime">
+								<div class="user">
+									<span class="name">{{rating.username}}</span>
+									<img class="avatar" :src="rating.avatar" width="12" height="12">
+								</div>
+								<div class="time">{{rating.rateTime | formatDate}}</div>
+								<p class="text">
+									<span :class="rating.rateType===0?'icon-thumb_up':'' || rating.rateType===1?'icon-thumb_down':''"></span>
+									 {{rating.text}}
+								</p>
+							</li>
 						</ul>
 						<div class="no-rating" v-show="!selectedfood.ratings || selectedfood.ratings.length==0">
 							暂无评价
@@ -61,9 +59,9 @@
 
 <script>
 	import BScroll from 'better-scroll';
-	import cartcontrol from '../cartcontrol/cartcontrol';
-	import split from '../split/split';
-	import ratingselect from '../ratingselect/ratingselect';
+	import cartcontrol from './cartcontrol';
+	import split from './split';
+	import ratingselect from './ratingselect';
 	import {JSDate} from '../../common/js/date';
 	import Vue from 'vue';
 	
@@ -97,7 +95,7 @@
 		},
 		methods:{
 			show(){
-				this.showFlag=true
+				this.showFlag=true;
 				// 由于数据可能被更改，所以每次重新点进去都要重置一次
 				this.selectType=ALL;
 				this.onlyContent=false;
@@ -174,13 +172,13 @@
 				height:100%
 			.back
 				position:absolute
-				top:10px
+				top:5px
 				left:0
 				.icon-arrow_lift
 					display:block
-					padding:10px 
+					padding:5px 
 					font-size:20px
-					color:#fff
+					color:rgba(255,255,255,.8)
 		.content
 			padding:18px 
 			position:relative
@@ -190,7 +188,7 @@
 				font-size:14px 
 				font-weight:700
 				color:rgb(7,17,27)
-			.detail
+			.fooddetail
 				margin-bottom:18px 
 				line-height:10px 
 				height:10px
@@ -253,11 +251,6 @@
 					position:relative
 					padding:16px 0
 					border-1px(rgba(7,17,27,.1))
-					transition:all .3s 
-					&.rating-leave-to
-						transform:translate3d(100%,0,0)
-					&.rating-enter
-						opacity:0
 					.user
 						position:absolute
 						right:0

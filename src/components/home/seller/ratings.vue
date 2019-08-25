@@ -1,6 +1,6 @@
 <template>
-	<div class="ratings" ref="ratings">
-		<div class="ratings-conent" >
+	<div class="ratings"  ref="ratings">
+		<div class="ratingsConent" >
 			<div class="overview">
 				<div class="overview-left">
 					<h1 class="score">{{seller.score}}</h1>
@@ -57,18 +57,18 @@
 </template>
 
 <script>
-	import star from '../star/star';
-	import split from '../split/split';
-	import ratingselect from '../ratingselect/ratingselect';
+	import star from '../../subcomponents/star';
+	import split from '../../subcomponents/split';
+	import ratingselect from '../../subcomponents/ratingselect';
 	import Vue from 'vue';
 	import BScroll from 'better-scroll';
-	import {JSDate} from '../../common/js/date';
+	import {JSDate} from '../../../common/js/date';
 	
 	const ERR_OK=0;
 	const ALL=2;
 	Vue.prototype.ALL=ALL;
 	export default {
-		props:['seller'],
+		props:['seller', 'id'],
 		data(){
 			return{
 				selectType:ALL,
@@ -106,27 +106,27 @@
 				}
 			}
 		},
-		created(){
-			this.axios.get('/api/ratings').then((res) => {
+		async created(){
+			await this.axios.get('/api/ratings?id='+this.id).then((res) => {
 				if(res.data.errno===ERR_OK){
 					this.ratings=res.data.data;
 				}
 			})
 			// 同时需要确保每次更新，这两个值都还是这些值
-			// this.selectType=ALL;
-			// this.onlyContent=false;
-		},
-		mounted(){
+			this.selectType=ALL;
+			this.onlyContent=false;
 			// 滚动屏幕
 			this.$nextTick(function(){
 				if(!this.scroll){
 					this.scroll=new BScroll(this.$refs.ratings, {
-						probeType:3, click:true
+						click:true, probeType:3
 					})
 				}else{
 					this.scroll.refresh();
 				}
 			})
+						// 需要设置滚动区域高度
+			this.$refs.ratings.style.height=window.innerHeight-174+'px'
 		},
 		filters:{
 			formatDate(time){
@@ -138,14 +138,22 @@
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">
-	@import '../../common/stylus/maxin'
-	// 因为我们不需要包括购物车，所以使用绝对定位，不使用fixed定位
-	.ratings
+@import '../../../common/stylus/maxin'
+// 因为我们不需要包括购物车，所以使用绝对定位，不使用fixed定位
+.ratings
+	position:relative
+	top:40px
+	left:0
+	bottom:0
+	width:100%
+	background:white
+	overflow:hidden
+	.ratingsConent
+	// 不能设置height:100%，这里的高度应该大于被绑定滚动的父元素
+		// height:100%
 		position:absolute
-		top:174px
-		bottom:0
-		width:100%
-		overflow:hidden
+		top:0
+		z-index:2
 		.overview
 			display:flex
 			padding:18px 0

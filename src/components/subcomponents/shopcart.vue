@@ -56,6 +56,7 @@
 		<transition name="fade">
 			<div class="list-mask" v-show="listShow" @click="hiddenList"></div>
 		</transition>
+		
 	</div>
 </template>
 
@@ -204,11 +205,12 @@
 					return;
 				}
 				// 在html中使用@click.stop阻止冒泡
-				window.alert(`支付${this.totalPrice}元`)
+				// window.alert(`支付${this.totalPrice}元`)
+				this.$store.commit('changemoneyshow');
 			}
 		},
 		components:{
-			cartcontrol:cartcontrol
+			cartcontrol
 		}
 	}
 </script>

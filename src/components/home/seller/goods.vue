@@ -43,11 +43,13 @@
 		</div>
 		<shopcart ref="shopcart" :selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
 		<food :selectedfood="selectedfood" ref="food" @cart_add="cartAdd"></food>
+		<paymoney :selectFoods="selectFoods" :seller="seller" v-if="mymoneyshow"></paymoney>
 	</div>
 </template>
 
 <script>
 	import BScroll from 'better-scroll';
+	import paymoney from '../../subcomponents/paymoney'
 	import shopcart from '../../subcomponents/shopcart';
 	import cartcontrol from '../../subcomponents/cartcontrol';
 	import food from '../../subcomponents/food';
@@ -77,7 +79,6 @@
 					});
 				}
 			})
-			// console.log('我是开发环境下的~')
 		},
 		methods:{
 			_initScroll(){
@@ -154,12 +155,16 @@
 					})
 				})
 				return foods;
+			},
+			mymoneyshow(){
+				return this.$store.state.moneyshow;
 			}
 		},
 		components:{
 			shopcart:shopcart,
 			cartcontrol:cartcontrol,
-			food:food
+			food:food,
+			paymoney:paymoney
 		}
 	};
 </script>
@@ -171,7 +176,7 @@
 		position:absolute
 		top:174px
 		// 48px购物车-40px app.vue
-		bottom:8px
+		bottom:48px
 		// top:174px		bottom:48px		width:100%这种方式设置相对垂直距离
 		width:100%
 		overflow:hidden

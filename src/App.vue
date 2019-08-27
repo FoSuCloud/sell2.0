@@ -5,13 +5,19 @@
 		</keep-alive>
 		<div class="tab" v-show="!show">
 			<div class="tab-item">
-				<router-link to="/home" :business="business">首页</router-link>
+				<router-link to="/home" :business="business">
+					<i class="icon-home"></i>首页
+				</router-link>
 			</div>
 			<div class="tab-item">
-				<router-link to="/buy">订单</router-link>
+				<router-link to="/buy">
+					<i class="icon-orderfile"></i>订单
+				</router-link>
 			</div>
 			<div class="tab-item">
-				<router-link to="/my">我的</router-link>
+				<router-link to="/my">
+					<i class="icon-user"></i>我的
+				</router-link>
 			</div>
 		</div>
   </div>
@@ -54,7 +60,7 @@
 			line-height:40px
 			position:fixed
 			bottom:0
-			background:black
+			background:white
 			.tab-item
 				z-index:-1
 				flex:1
@@ -62,8 +68,15 @@
 				// & > a 代表的就是 #app.tab.tab-item >a 也可以直接使用 a
 				&>a
 					display:block
-					font-size:14px
-					color:white
+					font-size:8px
+					color:black
 					&.active
-						color:rgb(240,0,0)
+						color:rgb(0,0,240)
+					.icon-home,.icon-orderfile,.icon-user
+						font-size:24px
+						margin-bottom:14px
+						display:block
+						position:relative
+						top:15px
+						line-height:0
 </style>

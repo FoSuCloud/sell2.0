@@ -11,11 +11,15 @@ Vue.config.productionTip = false
 Vue.use(Vuex);
 var store=new Vuex.Store({
 	state:{
-			homeshow:false
+			homeshow:false,
+			moneyshow:false
 	},
 	mutations:{
 			changehomeshow(state){
 				state.homeshow=!state.homeshow;
+			},
+			changemoneyshow(state){
+				state.moneyshow=!state.moneyshow;
 			}
 	}
 })

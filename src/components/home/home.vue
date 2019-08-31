@@ -49,7 +49,7 @@
 						<div class="item-wrapper">
 							<!-- 图片 -->
 							<div class="icon">
-								<img :src="businessData.seller.avatar" width="57px" height="57px">
+								<img v-lazy="businessData.seller.avatar" width="57px" height="57px">
 							</div>
 							<!-- 内容 -->
 							<div class="content">

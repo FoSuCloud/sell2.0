@@ -86,7 +86,7 @@
 * vue-axios是基于Promise用于浏览器和nodejs的http客户端,vue-axios依赖于本机支持ES6 `Promise` 实现，可以拦截请求和响应，转换请求和响应数据，从浏览器中创建XML，从nodejs发出http请求
 * Express 是一个简洁而灵活的 node.js Web应用框架,可以快速搭建一个网站,特性:可以设置中间件来响应http请求(webpack.dev.conf.js)；定义了路由表用于执行不同的 HTTP 请求动作(发送请求，我们使用vue-axios)，可以通过向模板传递参数来动态渲染 HTML 页面(css,js等各种文件处理)
 * better-scroll是一款重点解决移动端（已支持 PC）各种滚动场景需求的插件
-
+* vue-lazyload实现图片懒加载
 
 ## 6.收集网站
 * [生成图标文本](https://icomoon.io)

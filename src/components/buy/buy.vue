@@ -1,11 +1,17 @@
 <template>
-	<div class="header">
-		i am buy
+	<div class="buyheader">
+		
 	</div>
 </template>
 
 <script>
-	export default{}
+	export default{
+		data(){
+			return {
+				
+			}
+		}
+	}
 </script>
 
 <style>

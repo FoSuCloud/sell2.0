@@ -4,7 +4,7 @@
 			<div class="payheaderwrapper">
 					<div class="paytop">
 						<div class="back" @click.stop="destory"><i class="icon-arrow_lift"></i></div>
-						<span class="payloc">佛山科学技术学院仙溪校区</span>
+						<span class="payloc">佛山科学技术学院(仙溪校区)西门</span>
 						<div class="payphone">一叶(先生) <span class="phone">5201314</span>	
 					</div>
 					<div class="payother">
@@ -129,7 +129,8 @@
 		top:0
 		width:100%
 		height:100%
-		background:rgb(29,174,254)
+		// background:rgb(29,174,254)
+		background:linear-gradient(to bottom left, rgb(29,174,254) , white)
 		bottom:0
 		.payheader
 			padding:0 5px
@@ -137,6 +138,7 @@
 			.paytop
 				padding:20px 0
 				position:relative
+				// background:linear-gradient(to bottom left, rgb(29,174,254) , white)
 				.back
 					position:absolute
 					top:5px
@@ -151,6 +153,10 @@
 					margin-bottom:5px
 					display:block
 					padding:0 15px
+					white-space:nowrap
+					overflow:hidden 
+					text-overflow:ellipsis
+					width:200px
 				.payphone
 					color:rgb(255,255,255)
 					font-size:14px

@@ -1,6 +1,6 @@
 <template>
 	<div class="buyheader">
-		
+		i am buy
 	</div>
 </template>
 

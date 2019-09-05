@@ -2,7 +2,7 @@
 	<div class="my" ref="my">
 		<div class="my-wrapper">
 			<div class="my-header">
-				<div class="my-header_status">
+				<div class="my-header_status" @click="loginin">
 					<div class="my-header-not_loaded">
 						<div class="my-header-not_loaded-or">
 							登录/注册
@@ -45,15 +45,20 @@
 		<div class="my-privacy">
 			<a class="my-privacy-text" href="#">隐私政策</a>
 		</div>
+		<login v-show="loginshow" @changelogin="loginin"  @changepassword="tochangepassword"></login>
+		<password v-show="passwordshow" @changepassword="tochangepassword"></password>
 	</div>
-	
 </template>
 
 <script>
 	import split from '../subcomponents/split.vue';
+	import login from '../subcomponents/login.vue';
+	import password from '../subcomponents/password.vue';
 	export default{
 		components:{
-			split
+			split,
+			login,
+			password
 		},
 		data(){
 			return {
@@ -61,7 +66,9 @@
 				{icon:'icon-gift', text:'推荐有奖'}, 
 				{icon:'icon-wish', text:'我的心意卡'}, 
 				{icon:'icon-service', text:'服务中心'}, 
-				{icon:'icon-rule', text:'规则中心'}]
+				{icon:'icon-rule', text:'规则中心'}],
+				loginshow:false,
+				passwordshow:false
 			}
 		},
 		mounted(){
@@ -70,6 +77,15 @@
 		methods:{
 			setwidth(){
 				this.$refs.my.style.height=window.innerHeight-40+'px'
+			},
+			loginin(){
+				this.loginshow=!this.loginshow;
+			},
+			tochangepassword(){
+				console.log('222')
+				this.loginshow=!this.loginshow;
+				// 登录界面消失，密码界面出现
+				this.passwordshow=!this.passwordshow;
 			}
 		}
 	};

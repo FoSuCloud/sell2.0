@@ -1,11 +1,11 @@
 <template>
   <div class="home">
 	  <div class="home-header" v-show="!show">
-		<span class="location"><i class="icon-location2"></i>佛山科学技术学院(仙溪校区)</span>
+		<span class="location"><i class="icon-location2"></i>佛山科学技术学院(仙溪校区)西门</span>
 		  <!-- value="搜索商家,商品名称" -->
 		  <div class="iconsearch">
 			  <i class="icon-search"></i>
-			  <input type="text"  placeholder="搜索商家,商品名称" class="home-search">
+			  <input type="text" autofocus="autofocus" placeholder="搜索商家,商品名称" class="home-search">
 		  </div>
 	  </div>
 	  <div class="home-wrapper" v-show="!show"  ref="content">
@@ -183,6 +183,12 @@
 				color:rgb(255,255,255)
 				padding:18px 0 25px 18px
 				flex:0
+				width:200px
+				white-space:nowrap
+				overflow:hidden 
+				text-overflow:ellipsis
+				// 因为设置了overflow:hidden之后下边距消失了，所以需要设置外下边距
+				margin-bottom:20px
 				.icon-location2
 					padding-right:3px
 			.iconsearch

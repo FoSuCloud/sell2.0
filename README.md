@@ -1,5 +1,5 @@
 ## 项目成果展示
-![页面一](https://github.com/FoSuCloud/sell2.0/tree/master/showimg/1.png)
+![页面一](https://github.com/FoSuCloud/sell2.0/blob/master/showimg/1.png)
 
 
 * 本项目为2.0版本,[1.0版本](https://github.com/FoSuCloud/sell)

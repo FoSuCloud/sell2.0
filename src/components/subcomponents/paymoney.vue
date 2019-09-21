@@ -293,4 +293,5 @@
 				float:right
 				height:40px
 				border-radius:1px
+				outline:none
 </style>

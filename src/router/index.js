@@ -29,7 +29,6 @@ export default new Router({
   	name:'home',
   	component:home,
 		children:[
-				{path:'', name:'goods', component:goods},
 				{path:'goods', name:'goods', component:goods},
 				{path:'ratings', name:'ratings', component:ratings},
 				{path:'seller', name:'sellers', component:seller}

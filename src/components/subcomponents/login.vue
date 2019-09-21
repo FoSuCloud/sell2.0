@@ -1,5 +1,5 @@
 <template>
-	<div class="mylogin">
+	<div class="mylogin" ref="mylogin">
 		<div class="mylogin-wrapper">
 			<div class="login-header">
 				<div class="headerwarpper">
@@ -9,14 +9,14 @@
 				</div>
 			</div>
 			<div class="login-content">
-				<form action="#" method="get" name="login">
+				<form name="login">
 					<div class="phone-wrapper">
 						<input type="number" v-model="loginnum" placeholder="手机号" class="phone">
 						<input type="button" @click="startsetTime" ref="checkmode" class="getnum" value="获取验证码">
 					</div>
 					<input type="text" placeholder="验证码" class="number">
 					<span class="formtext">温馨提示，尚未注册的账号，使用手机号码登录将自动注册,且代表你已经同意<a href="#">《用户服务协议》</a><a href="#">《隐私政策》</a></span>
-					<input type="submit" class="submit">
+					<input type="button" @click="verify" class="submit" value="登录/注册">
 				</form>
 			</div>
 			<div class="login-footer">
@@ -48,8 +48,12 @@
 				 {icon:'icon-weixin', text:'微信'}],
 				 getshow:true,
 				 loginnum:'',
-				 toshowpassword:false
+				 toshowpassword:false,
+				 code:''
 			}
+		},
+		mounted(){
+			this.$refs.mylogin.style.height=window.screen.height+'px'
 		},
 		methods:{
 			loginshow(){
@@ -84,7 +88,33 @@
 					// 但是此时下面两个if都在setTimeout之前就执行完毕了，所以放在这里也没用
 					// 调用函数?不行的，在setimeout里面调用函数，this指的是window,
 					// 所以要用回调函数!!!
+					
+					// 点击之后向服务器发送一个请求去获取验证码
+					this.axios.get('/api/validatecode?loginnum='+this.loginnum).then((res) => {
+						if(res.data.errno===0){
+							console.log(res.data.data);
+							// 把服务器发送过来的验证码存储起来
+							this.code=res.data.data;
+						}else{
+							console.log('失败')
+						}
+					})
 				}
+			},
+			verify(){
+				// 提交手机号码和验证码给服务器验证
+				this.axios.get('/api/getverify?number='+this.loginnum+'&text='+this.code)
+				.then(res => {
+					if(res.data.errno===0){
+						// 登陆成功传递信息给父组件
+						this.$emit('getuserinfo', res.data.data)
+						// 在DOM更新后再隐藏
+						this.$nextTick(function(){
+							// 隐藏登录页面
+							this.loginshow();
+						})
+					}
+				})
 			},
 			showpassword(){
 				this.$emit('changepassword');
@@ -108,10 +138,9 @@
 <style lang="stylus" rel="stylesheet/stylus" scoped="scoped">
 	@import '../../common/stylus/maxin.styl'
 	.mylogin
-		z-index:2
-		height:100%
+		z-index:3
 		background:rgb(245,245,245)
-		position:fixed
+		position:relative
 		top:0
 		bottom:0
 		width:100%

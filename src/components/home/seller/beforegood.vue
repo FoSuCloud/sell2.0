@@ -4,14 +4,14 @@
 		<v-header :seller="seller" class="vheader"></v-header>
 	<!--  由于border-1px 的存在会导致文字被左右拉伸，因为设置了scaleY被缩放，所以暂时去掉这个class-->
 		<div class="good-tab">
-			<div class="tab-item">
-				<router-link :to="{name:'goods',query:{id:updateid}}">商品</router-link>
+			<div class="tab-item" @click="changewho(1)">
+				<router-link :class="updatewho===1?'active':''"  :to="{name:'goods',query:{id:updateid}}">商品</router-link>
 			</div>
-			<div class="tab-item">
-				<router-link :to="{name:'ratings',query:{id:updateid}}">评论</router-link>
+			<div class="tab-item" @click="changewho(2)">
+				<router-link :class="updatewho===2?'active':''" :to="{name:'ratings',query:{id:updateid}}">评论</router-link>
 			</div>
-			<div class="tab-item">
-				<router-link :to="{name:'sellers',query:{id:updateid}}">商家</router-link>
+			<div class="tab-item" @click="changewho(3)">
+				<router-link :class="updatewho===3?'active':''"  :to="{name:'sellers',query:{id:updateid}}">商家</router-link>
 			</div>
 		</div>
 		<keep-alive>
@@ -28,6 +28,16 @@
 		const ERR_OK=0;
 		
 		export default{
+			data(){
+				return{
+					showwho:1
+				}
+			},
+			methods:{
+				changewho(num){
+					this.showwho=num;
+				}
+			},
 			props:['id', 'seller'],
 			computed:{
 				show(){
@@ -38,6 +48,9 @@
 				},
 				updateseller(){
 					return this.seller;
+				},
+				updatewho(){
+					return this.showwho;
 				}
 			},
 			components:{

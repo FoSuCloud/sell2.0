@@ -1,7 +1,7 @@
 <template>
   <div class="home">
 	  <div class="home-header" v-show="!show">
-		<span class="location"><i class="icon-location2"></i>佛山科学技术学院(仙溪校区)西门</span>
+		<span class="location"><i class="icon-location2"></i>{{positon}}</span>
 		  <!-- value="搜索商家,商品名称" -->
 		  <div class="iconsearch">
 			  <i class="icon-search"></i>
@@ -76,6 +76,10 @@
 			  </div>
 		  </div>
 	  </div>
+	  <div class="amap-wrapper">
+	        <el-amap class="amap-demo" vid="map" :plugin="plugin">
+			</el-amap>
+	  </div>
 	  <beforegood :seller="seller" :id="selectid"></beforegood>
   </div>
 </template>
@@ -87,12 +91,13 @@
 		import star from '../subcomponents/star.vue';
 		import {urlParse} from '../../common/js/util';
 		import BScroll from 'better-scroll';
-
+		import VueAMap from 'vue-amap';
 		//返回成功的状态码
 		const ERR_OK=0;
 		
 		export default{
 			data() {
+				let self = this;
 				return{
 					selectid:"",
 					seller:'',
@@ -104,7 +109,24 @@
 					require('../../assets/icon/6.png'),
 					require('../../assets/icon/7.png'),
 					require('../../assets/icon/8.png')],
-					spanlist:['海鲜', '火锅', '水果', '甜食', '烟酒', '饮品', '烧烤', '寿司']
+					spanlist:['海鲜', '火锅', '水果', '甜食', '烟酒', '饮品', '烧烤', '寿司'],
+					positon: '',
+					plugin: [{
+					       pName: 'Geolocation',
+					       events: {
+					         init(o) {
+					           // o 是高德地图定位插件实例
+					           o.getCurrentPosition((status, result) => {
+					             // console.log(result.formattedAddress);  //  能获取定位的所有信息
+					             if(!result.formattedAddress){
+									 self.positon='佛山科学技术学院仙溪校区(西门)';
+								 }else{
+									 self.positon=result.formattedAddress
+								 }
+					           });
+					         }
+					       }
+					     }]
 				};
 			},
 			props:['business'],
@@ -112,9 +134,15 @@
 				this.$nextTick(function(){
 					this.initscroll();
 					this.iconscroll();
-				})
+				});
+			},
+			mounted(){
+				// this.getlocation()
 			},
 			methods:{
+				getlocation(){
+					
+				},
 				// 由于请求是异步的，所以会先执行其他的，但是我们需要先拿到数据，所以设置同步 async awit
 				async selectBusiness(id){
 					await this.axios.get('/api/seller?id='+id).then((res) => {
@@ -171,6 +199,9 @@
 	@import '../../common/stylus/maxin'
 	.home
 		width:100%
+		.amap-wrapper 
+			position:absolute
+			top:0
 		.home-header
 			z-index:0
 			width:100%

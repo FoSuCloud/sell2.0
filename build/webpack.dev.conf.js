@@ -16,6 +16,13 @@ var QcloudSms = require("qcloudsms_js");//腾讯云短信
 const express=require('express')
 
 const app=express()
+// 解决跨域问题,这个要放在最前面!!!
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type,Content-Length,Accept");
+    next();
+});
 // 导入json文件
 const appData = require('../data.json') //加载本地数据文件
 var business=appData.business;
@@ -105,8 +112,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     hot: true,
     contentBase: false, // since we use CopyWebpackPlugin.
     compress: true,
-		// '192.168.1.103' ||
-    host: '10.201.252.158' || HOST || config.dev.host,
+		// '10.201.252.158' ||
+    host:  '10.201.252.158' || HOST || config.dev.host,
     port:  PORT || config.dev.port,
     open: config.dev.autoOpenBrowser,
     overlay: config.dev.errorOverlay
@@ -145,10 +152,10 @@ const devWebpackConfig = merge(baseWebpackConfig, {
         })
       });
 	  app.get('/api/validatecode',function(req,res){
-		res.json({
-			errno: 0,
-			data: code(req.query.loginnum)
-		})
+			res.json({
+				errno: 0,
+				data: code(req.query.loginnum)
+			})
 	  });
 	  app.get('/api/getverify', function(req,res){
 		  res.json({

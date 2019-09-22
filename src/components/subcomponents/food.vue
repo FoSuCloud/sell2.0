@@ -3,7 +3,7 @@
 		<div class="food" v-show="showFlag" ref="food">
 			<div class="food-content">
 				<div class="image-header">
-					<img :src="selectedfood.image">
+					<img :src="selectedfood.image" alt="商品" title="商品">
 					<div class="back" @click.stop="hide"><i class="icon-arrow_lift"></i></div>
 				</div>
 				<div class="content">
@@ -38,7 +38,7 @@
 							<li v-show="needShow(rating.rateType,rating.text)" class="rating-item" v-for="rating in selectedfood.ratings" :key="rating.rateTime">
 								<div class="user">
 									<span class="name">{{rating.username}}</span>
-									<img class="avatar" :src="rating.avatar" width="12" height="12">
+									<img class="avatar" :src="rating.avatar" width="12" height="12" alt="商品" title="商品">
 								</div>
 								<div class="time">{{rating.rateTime | formatDate}}</div>
 								<p class="text">

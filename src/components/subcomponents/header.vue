@@ -97,6 +97,10 @@
 			hide:function(){
 				// 让商家页面消失
 				this.$store.commit('changehomeshow');
+				// 回到home的页面
+				this.$router.push({name:'home'})
+				// 修改show的值
+				// this.$emit('updatewho', 1)
 			}
 		},
 		components:{

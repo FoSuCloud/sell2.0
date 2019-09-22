@@ -52,7 +52,7 @@
 				<div class="pictures-wrapper" ref="picturesWrapper">
 					<ul class="picture-list" ref="pictureList">
 						<li class="picture-item" v-for="pic in seller.pics" :key="pic.$index">
-							<img :src="pic" width="120" height="90">
+							<img :src="pic" width="120" height="90" alt="店铺图片" title="店铺图片">
 						</li>
 					</ul>
 				</div>

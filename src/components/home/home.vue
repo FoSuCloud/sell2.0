@@ -9,72 +9,72 @@
 		  </div>
 	  </div>
 	  <div class="home-wrapper" v-show="!show"  ref="content">
-		  <div class="homewrawra">
-			  <roundmap></roundmap>
-			  <split></split>
-			  <div class="fleximg" ref="fleximg">
-			  			  <div class="flex-wrapper" ref="flexwrapper">
-			  				  <div class="fleximgone">
-			  					  <ul class="flexul">
-			  						<li v-for="(ic,i) in iconlist" :key="ic.$index" class="icli">
-			  										<img :src="ic" class="icimg">
-			  										<span class="icspan">{{spanlist[i]}}</span>
-			  									</li>
-			  					  </ul>
-			  					  <ul class="flexul2">
-			  						<li v-for="(ic,i) in iconlist2" :key="ic.$index" class="icli">
-			  										<img :src="ic" class="icimg">
-			  										<span class="icspan">{{spanlist[i+4]}}</span>
-			  									</li>
-			  					  </ul>
-			  				  </div>
-			  				  <div class="fleximgtwo">
-			  					  <ul class="flexul">
-			  						<li v-for="(ic,i) in iconlist" :key="ic.$index" class="icli">
-			  							<img :src="ic" class="icimg">
-			  							<span class="icspan">{{spanlist[i]}}</span>
-			  						</li>
-			  					  </ul>
-			  				  </div>
-			  			  </div>
-			  			  <div class="flexround">
-			  				  <span class="flexleft"></span>
-			  				  <span class="flexright"></span>
-			  			  </div>
-			  </div>
-			  <split></split>		  
-			  <div class="home-content">
-				  <ul>
-					<li  @click="selectBusiness(businessData.id)" class="business-item" v-for="businessData in business" :key="businessData.id">
-						<div class="item-wrapper">
-							<!-- 图片 -->
-							<div class="icon">
-								<img v-lazy="businessData.seller.avatar" width="57px" height="57px">
+		<div class="homewrawra">
+				  <roundmap></roundmap>
+				  <split></split>
+				  <div class="fleximg" ref="fleximg">
+					  <div class="flex-wrapper" ref="flexwrapper">
+						  <div class="fleximgone">
+							  <ul class="flexul">
+								<li v-for="(ic,i) in iconlist" :key="ic.$index" class="icli">
+									<img :src="ic" class="icimg" alt="第一排图标" title="第一排图标">
+									<span class="icspan">{{spanlist[i]}}</span>
+								</li>
+							  </ul>
+							  <ul class="flexul2">
+								<li v-for="(ic,i) in iconlist2" :key="ic.$index" class="icli">
+									<img :src="ic" class="icimg" alt="第二排图标" title="第二排图标">
+									<span class="icspan">{{spanlist[i+4]}}</span>
+								</li>
+							  </ul>
+						  </div>
+						  <div class="fleximgtwo">
+							  <ul class="flexul">
+								<li v-for="(ic,i) in iconlist" :key="ic.$index" class="icli">
+									<img :src="ic" class="icimg" alt="第二屏图标" title="第二屏图标">
+									<span class="icspan">{{spanlist[i]}}</span>
+								</li>
+							  </ul>
+						  </div>
+					  </div>
+					  <div class="flexround">
+						  <span class="flexleft"></span>
+						  <span class="flexright"></span>
+					  </div>
+				  </div>
+				  <split></split>		  
+				  <div class="home-content">
+					  <ul>
+						<li  @click="selectBusiness(businessData.id)" class="business-item" v-for="businessData in business" :key="businessData.id">
+							<div class="item-wrapper">
+								<!-- 图片 -->
+								<div class="icon">
+									<img v-lazy="businessData.seller.avatar" width="57px" height="57px" alt="商家" title="商家">
+								</div>
+								<!-- 内容 -->
+								<div class="content">
+									<h2 class="name">{{businessData.seller.name}}</h2>
+									<div class="innercontent">
+										<star :size="24" :score="businessData.seller.score"></star>
+										<span class="score">{{businessData.seller.score}}</span>
+										<span class="count">月售{{businessData.seller.sellCount}}份</span>
+									</div>
+									<div class="middlecontent">
+										<span class="minPrice">￥{{businessData.seller.minPrice}}元起送</span>
+										<span class="line">|</span>
+										<span class="deliveryPrice">配送费￥{{businessData.seller.deliveryPrice}}</span>
+									</div>
+									<div class="extra">
+										<span class="location">2.0km</span>
+										<span class="line">|</span>
+										<span class="time">{{businessData.seller.deliveryTime}}分钟</span>
+									</div>
+								</div>
 							</div>
-							<!-- 内容 -->
-							<div class="content">
-								<h2 class="name">{{businessData.seller.name}}</h2>
-								<div class="innercontent">
-									<star :size="24" :score="businessData.seller.score"></star>
-									<span class="score">{{businessData.seller.score}}</span>
-									<span class="count">月售{{businessData.seller.sellCount}}份</span>
-								</div>
-								<div class="middlecontent">
-									<span class="minPrice">￥{{businessData.seller.minPrice}}元起送</span>
-									<span class="line">|</span>
-									<span class="deliveryPrice">配送费￥{{businessData.seller.deliveryPrice}}</span>
-								</div>
-								<div class="extra">
-									<span class="location">2.0km</span>
-									<span class="line">|</span>
-									<span class="time">{{businessData.seller.deliveryTime}}分钟</span>
-								</div>
-							</div>
-						</div>
-					</li>
-				  </ul>
+						</li>
+					  </ul>
+				  </div>
 			  </div>
-		  </div>
 	  </div>
 	  <div class="amap-wrapper">
 	        <el-amap class="amap-demo" vid="map" :plugin="plugin">
@@ -100,6 +100,7 @@
 				let self = this;
 				return{
 					selectid:"",
+					business:'',
 					seller:'',
 					iconlist:[require('../../assets/icon/1.png'),
 					require('../../assets/icon/2.png'),
@@ -117,7 +118,7 @@
 					         init(o) {
 					           // o 是高德地图定位插件实例
 					           o.getCurrentPosition((status, result) => {
-					             // console.log(result.formattedAddress);  //  能获取定位的所有信息
+					             console.log(result.formattedAddress);  //  能获取定位的所有信息
 					             if(!result.formattedAddress){
 									 self.positon='佛山科学技术学院仙溪校区(西门)';
 								 }else{
@@ -126,23 +127,22 @@
 					           });
 					         }
 					       }
-					     }]
+					     }],
+					scrollheight:0
 				};
 			},
-			props:['business'],
-			created(){
+			async created(){
+				await this.axios.get('/api/alls').then((res) => {
+					if(res.data.errno===ERR_OK){
+						this.business=res.data.data;
+					}
+				});
 				this.$nextTick(function(){
 					this.initscroll();
 					this.iconscroll();
 				});
 			},
-			mounted(){
-				// this.getlocation()
-			},
 			methods:{
-				getlocation(){
-					
-				},
 				// 由于请求是异步的，所以会先执行其他的，但是我们需要先拿到数据，所以设置同步 async awit
 				async selectBusiness(id){
 					await this.axios.get('/api/seller?id='+id).then((res) => {
@@ -153,6 +153,8 @@
 						}
 					});
 					this.selectid=id;
+					// 改变路由
+					this.$router.push({name:'goods', query:{id:id}})
 					// DOM元素更新之后，主要是id,seller传递过去之后才执行
 					this.$nextTick(function(){
 						// 显示前商家页面,beforegood.vue
@@ -164,8 +166,6 @@
 						this.busscroll=new BScroll(this.$refs.content, {
 							click:true
 						})
-					}else{
-						this.busscroll.refresh();
 					}
 				},
 				iconscroll(){
@@ -173,8 +173,6 @@
 						this.icscroll=new BScroll(this.$refs.fleximg, {
 							probeType:3, scrollX:true, eventPassthrough:'vertical', click:true
 						})
-					}else{
-						this.icscroll.refresh();
 					}
 					// 设置图标总宽度，两倍,由于是浮动的，图标位置不稳，滚动之后会变化
 					this.$refs.flexwrapper.style.width=window.innerWidth*2 -40+'px';

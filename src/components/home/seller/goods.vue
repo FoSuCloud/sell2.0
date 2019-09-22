@@ -19,7 +19,7 @@
 						<li  @click="selectFood(food)" class="food-item" v-for="(food,i) in item.foods" :key="i">
 							<!-- 图片 -->
 							<div class="icon">
-								<img :src="food.icon" width="57px" height="57px">
+								<img :src="food.icon" width="57px" height="57px" alt="商品" title="商品">
 							</div>
 							<!-- 内容 -->
 							<div class="content">

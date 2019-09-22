@@ -32,7 +32,7 @@
 				<ul>
 					<li class="rating-item" v-for="rating in ratings" :key="rating.$index" v-show="needShow(rating.rateType,rating.text)">
 						<div class="avatar">
-							<img :src="rating.avatar" width="28" height="28">
+							<img alt="用户头像" title="用户头像" :src="rating.avatar" width="28" height="28">
 						</div>
 						<div class="content">
 							<h1 class="name">{{rating.username}}</h1>

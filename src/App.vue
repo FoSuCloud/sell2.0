@@ -1,9 +1,9 @@
 <template>
   <div id="app">
 		<keep-alive>
-			<router-view :business="business" class="Router"></router-view>
+			<router-view  :business="business" class="Router"></router-view>
 		</keep-alive>
-		<div class="tab" v-show="!show">
+		<div class="tab" v-show="!show" >
 			<div class="tab-item">
 				<router-link to="/home" :business="business">
 					<i class="icon-home"></i>首页
@@ -32,13 +32,12 @@
 		export default{
 			data() {
 				return{
-					business:{}
+					business:null
 				};
 			},
 			created(){
 				this.axios.get('/api/alls').then((res) => {
 						if(res.data.errno===ERR_OK){
-							// 在原有seller的基础上(id)再加上相应数据
 							this.business=res.data.data;
 						}
 				});

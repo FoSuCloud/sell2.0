@@ -18,6 +18,7 @@ Vue.prototype.axios = axios;
 // 然后我们就可以针对该属性设置样式了
 export default new Router({
   linkActiveClass:'active',
+  // mode: 'history',
   routes: [
     {
       path: '/',
@@ -29,9 +30,10 @@ export default new Router({
   	name:'home',
   	component:home,
 		children:[
-				{path:'goods', name:'goods', component:goods},
-				{path:'ratings', name:'ratings', component:ratings},
-				{path:'seller', name:'sellers', component:seller}
+			{path:'/', redirect:'goods'},
+			{path:'goods', name:'goods', component:goods},
+			{path:'ratings', name:'ratings', component:ratings},
+			{path:'seller', name:'sellers', component:seller}
 		]
   },
   {

@@ -81,7 +81,7 @@
 		},
 		methods:{
 			setwidth(){
-				this.$refs.my.style.height=window.innerHeight-40+'px'
+				this.$refs.my.style.height=document.documentElement.clientHeight-40+'px'
 			},
 			loginin(){
 				this.loginshow=!this.loginshow;

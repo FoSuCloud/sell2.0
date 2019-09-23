@@ -53,7 +53,7 @@
 			}
 		},
 		mounted(){
-			this.$refs.mylogin.style.height=window.screen.height+'px'
+			this.$refs.mylogin.style.height=window.innerHeight+'px'
 		},
 		methods:{
 			loginshow(){
@@ -92,7 +92,7 @@
 					// 点击之后向服务器发送一个请求去获取验证码
 					this.axios.get('/api/validatecode?loginnum='+this.loginnum).then((res) => {
 						if(res.data.errno===0){
-							console.log(res.data.data);
+							// console.log(res.data.data);
 							// 把服务器发送过来的验证码存储起来
 							this.code=res.data.data;
 						}else{
@@ -179,9 +179,9 @@
 					border-1px(rgb(238,238,238))
 					position:relative
 					.phone
-						width:100%
+						width:95%
 						height:100%
-						padding:0 20px
+						padding-left:5%
 						outline:0
 					.getnum
 						position:absolute
@@ -195,8 +195,9 @@
 						color:white
 						outline:0
 				.number
-					padding:0 20px
+					padding-left:5%
 					outline:0
+					width:95%
 				.formtext 
 					padding:20px 10px
 					display:block
